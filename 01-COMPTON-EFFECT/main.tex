@@ -116,14 +116,14 @@
 
     \foreach \c in {1,2,...,\MaxKapitel}{%
       \IfFileExists{01-prep/\c}{%
-        \input{02-eval/\c}{}
+        \input{01-prep/\c}{}
       }%
     }%
 
     \chapter{Experiment \& Evaluation}
 
     \foreach \c in {1,2,...,\MaxKapitel}{%
-      \IfFileExists{03-eval/\c}{%
+      \IfFileExists{02-eval/\c}{%
         \input{02-eval/\c}{}
       }%
     }%
