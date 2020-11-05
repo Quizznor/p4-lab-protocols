@@ -1,5 +1,4 @@
 # p4-lab-protocols
-Always remember: 1 WIMP per coffee mug
 
 ---
 
@@ -14,3 +13,11 @@ See the TEMPLATE folder for an example file structure:
     lit.bib     - bibliography file for \citations
     main.tex    - the main lab report tex file
     main.pdf    - the lab report in pdf format
+    
+---
+
+The individual files in eval/ and prep/ are intended to be numbered 1.tex, 2.tex, ...
+
+In this format they are automatically input in the main tex file. 
+
+You can use custom file names, but will have to add the corresponding files manually in main.tex
