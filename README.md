@@ -7,6 +7,7 @@ See the TEMPLATE folder for an example file structure:
     00-include  - folder for auxilary files (class, etc.)
     01-prep     - folder for sections of the preparation
     02-eval     - folder for sections of the evaluation
+    data        - folder for measurement report and other data
     fig         - folder for figures/images/plots
     script      - folder for evaluation scripts
     tab         - folder for tables/measurement data
