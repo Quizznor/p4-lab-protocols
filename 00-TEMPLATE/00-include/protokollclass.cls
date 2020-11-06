@@ -158,7 +158,9 @@
                                                 % at-begindocument
 \usepackage{svg}                                % include svg graphics
 
+% Custom packages that arent part of the template
 
+\usepackage{pdfpages}
 
 
 
