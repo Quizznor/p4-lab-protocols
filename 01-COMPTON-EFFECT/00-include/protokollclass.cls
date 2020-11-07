@@ -96,17 +96,18 @@
                                                 % later used for several
                                                 % definitions
 
-\usepackage[pdftex]{graphicx}                   % including images
-\usepackage[normal,
-                font={small,color=black},
-                labelfont=bf,
-                margin=2em]{caption}            % create graphics/
+\usepackage{graphicx}                   % including images
+%\usepackage[normal,
+%                font={small,color=black},
+%                labelfont=bf,
+%                margin=2em]{caption}            % create graphics/
 
-% Incompatible with the implicitly included subfig   % tabular captions
-% \usepackage{subcaption}                         % create subcaptions
-                                                % for subpictures
+% Incompatible with the implicitly included subfig    % tabular captions
+\usepackage{subcaption}                               % create subcaptions
+\captionsetup[subfigure]{justification=centering}     % for subpictures
+
 % Directly include subfig
-\usepackage{subfig}
+% \usepackage{subfig}
 
 
 \usepackage[absolute,overlay]{textpos}          % used for titlepage
@@ -149,19 +150,14 @@
             citebordercolor=kitcolor]{hyperref}
 
 
-\expandafter\def\csname ver@subfig.sty\endcsname{}
-                                                % stop package svg from loading
-                                                % package subfig
-                                                % http://tex.stackexchange.com/\
-                                                % questions/213273/undefined-  \
-                                                % control-sequence-            \
-                                                % at-begindocument
+\PreventPackageFromLoading{subfig}              % svg implicitly includes subfig
+                                                % which is incompatible with subcaption
 \usepackage{svg}                                % include svg graphics
+
 
 % Custom packages that arent part of the template
 
 \usepackage{pdfpages}
-\usepackage{subcaption}
 
 
 
@@ -193,7 +189,7 @@
         pdftitle={Praktikumsprotokoll zum Versuch \versuch},
         pdfsubject={Praktikumsprotokoll zum Versuch%
                     \versuch~(\praktikum-\versuchsnr) des physikalischen%
-                    Anfängerpraktikums Teil \praktikumteil\ der Fakultät für%
+                    Fortgeschrittenenpraktikums Teil \praktikumteil\ der Fakultät für%
                     Physik, \semester, KIT. Versuchsgruppe:
                     \wochentag-\gruppennr},
         pdfkeywords={kit,physik,praktikum,protokoll,%

@@ -102,11 +102,12 @@
                 labelfont=bf,
                 margin=2em]{caption}            % create graphics/
 
-% Incompatible with the implicitly included subfig   % tabular captions
-% \usepackage{subcaption}                         % create subcaptions
-                                                % for subpictures
+% Incompatible with the implicitly included subfig    % tabular captions
+\usepackage{subcaption}                               % create subcaptions
+\captionsetup[subfigure]{justification=centering}     % for subpictures
+
 % Directly include subfig
-\usepackage{subfig}
+% \usepackage{subfig}
 
 
 \usepackage[absolute,overlay]{textpos}          % used for titlepage
@@ -149,13 +150,8 @@
             citebordercolor=kitcolor]{hyperref}
 
 
-\expandafter\def\csname ver@subfig.sty\endcsname{}
-                                                % stop package svg from loading
-                                                % package subfig
-                                                % http://tex.stackexchange.com/\
-                                                % questions/213273/undefined-  \
-                                                % control-sequence-            \
-                                                % at-begindocument
+\PreventPackageFromLoading{subfig}              % svg implicitly includes subfig
+                                                % which is incompatible with subcaption
 \usepackage{svg}                                % include svg graphics
 
 % Custom packages that arent part of the template
