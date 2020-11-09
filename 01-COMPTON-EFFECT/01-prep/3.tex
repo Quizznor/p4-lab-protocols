@@ -7,8 +7,8 @@ Without knowing anything about the distribution of energies or deflection angles
 the scattered electrons, by examining \autoref{eq:electron-energy} it can already be 
 established that the energy the electron gains from the interaction is directly
 proportional to $\left(1-\cos\theta\right)$, or in other words, by how much the 
-photon is scattered away from its original path. It follows that for $\theta\,=\,$
-\SI{180}{\degree} the electron gains a maximal energy of 
+photon is scattered away from its original path. It follows that for \\
+$\theta\,=\,$\SI{180}{\degree} the electron gains a maximum energy of 
 
 \begin{equation}
 \label{eq:maximal-energy}
@@ -16,7 +16,25 @@ E_\text{max}=\frac{E_\gamma}{1+\frac{m_e c^2}{E_\gamma}}.
 \end{equation}
 
 Since the photon physically cannot dump more energy by this process, a sharp drop in
-the Compton spectrum at $E_\text{max}$ is expected. 
+the Compton spectrum at $E_\text{max}$ is expected. This characteristic drop-off is
+commonly called the \textbf{Compton edge}. Energetically lower than this cutoff lays
+the \textbf{Compton continuum}, or main part of the spectrum. Over a wide range of 
+energies that correspond to scattering angles $\theta\in[\SI{0}{\degree},\SI{180}
+{\degree}]$ the flux of electrons remains approximately constant. This follows
+directly from \autoref{eq:klein-nishina-cross-section}.
 
+\begin{figure}
+	\includegraphics[width=1.0\textwidth]{fig/compton-spectrum}
+	\caption{An idealised Compton spectrum. A relatively constant flux of
+	electrons is measured up to an energy of $E_\text{max}$, where the spectrum
+	sharply drops off. At the high-energy end of the spectrum a gaussian shaped 
+	photopeak is visible.}
+	\label{fig:compton-spectrum}
+\end{figure}
 
-\todo{Discussion of angular distribution, compton spectrum}
+Lastly, an idealised Compton spectrum as depicted in \autoref{fig:compton-spectrum}
+will also display a characteristic \textbf{photopeak}. This photopeak is caused by 
+photons directly interacting with detector material via the photoelectric effect.
+In this case, the entire energy of the photon is dumped inside the detector. It is 
+therefore a helpful reference point for calibrations, albeit not being part of the 
+Compton spectrum itself.
