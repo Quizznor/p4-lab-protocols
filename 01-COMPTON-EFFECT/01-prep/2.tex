@@ -6,7 +6,7 @@
 Compton scattering is the dominating effect by which photons with an energy between
 \SI{100}{\kilo\electronvolt} and \SI{10}{\mega\electronvolt} interact with matter
 \cite{damashek1970forward}. A theoretical description of the processes cross section
-is given by the \textbf{Klein-Nishina formul} (KN).
+is given by the \textbf{Klein-Nishina formula} (KN).
 
 \begin{equation}
 \label{eq:klein-nishina-cross-section}
@@ -21,19 +21,21 @@ obtains the total cross section.
 \sigma_\text{tot.} = \int \frac{\d\sigma}{\d\Omega}\,\d\Omega = \frac{\pi\alpha^2}{m_e^2}\frac{1}{x^3}\left(\frac{2x(2+x(1+x)(8+x))}{(1+2x)^2} + ((x-2)x-2\log(1+2x)\right)
 \end{equation}
 
-In the low-energy limit of $x\ll1$ \autoref{eq:total-cross-section} simplifies to the
-\textbf{Thomson cross section}, whereas in the high-energy limit $x\rightarrow\infty$
-we expand in $x$ to find the following.
+In the low-energy limit of $x\ll1$ \autoref{eq:total-cross-section} simplifies to
+a constant called the \textbf{Thomson cross section}, whereas in the high-energy
+limit $x\rightarrow\infty$ we expand in $x$ to find that the cross section vanishes.
+This behaviour can also be seen in \autoref{fig:compton-cross-section}.
 
 \begin{align*}
-x\;\:\ll\;\;1&:\qquad\sigma_\text{tot.} = \frac{8\pi\alpha^2}{m_e^2} \\
-x\longrightarrow\infty&:\qquad\sigma_\text{tot.} = \frac{\pi\alpha^2}{x m_e^2}\left(\frac{1}{2} + \log2x\right) 
+x\;\:\ll\;\;1&:\qquad\sigma_\text{tot.} = \frac{8\pi\alpha^2}{m_e^2} \approx \SI{0.6652}{\barn}\\
+x\longrightarrow\infty&:\qquad\sigma_\text{tot.} = \frac{\pi\alpha^2}{x m_e^2}\left(\frac{1}{2} + \log2x\right)
 \end{align*}
 
-As it turns out, the cross section is constant for low-energy photons, where 
-ionisation is more probable. Furthermore the likeliness of an interaction actually 
-decreases for high-energy photons and eventually drops to zero. This behaviour can 
-also be seen in \autoref{fig:compton-cross-section} and explains the importance of 
-Compton scattering over the intermediate ranges of energy from \SI{100}{\kilo
-\electronvolt} to \SI{10}{\mega\electronvolt}.
-
+Naively, one would therefore expect Compton scattering to be an important process
+for low to intermediate energy ranges of the electromagnetic spectrum, where the
+cross section $\sigma_\text{Tot.}$ is non-negligible. This is however not the case.
+Various other processes such as the photoelectric effect or Rayleigh scattering
+dominate the low energy regime and render Compton scattering only a fringe case.
+With higher photon energies, the cross section for the aforementioned processes
+drop off, and increase the importance of Compton scattering for gammas carrying
+an energy of \SI{100}{\kilo\electronvolt} up to \SI{10}{\mega\electronvolt} .
