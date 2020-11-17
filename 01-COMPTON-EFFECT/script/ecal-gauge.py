@@ -11,8 +11,8 @@ warnings.simplefilter('ignore', np.VisibleDeprecationWarning)
 # make plot labels readable in pdf
 plt.rcParams.update({'font.size': 20})
 plt.rc('axes', labelsize=26)
-datadir = "../data"
 
+datadir = "../data"
 channels_Co57, counts_Co57 = np.genfromtxt(f"{datadir}/gauge_Co-57.txt",unpack=True,max_rows=300)
 channels_Co60, counts_Co60 = np.genfromtxt(f"{datadir}/gauge_Co-60.txt",unpack=True,max_rows=300)
 channels_Na22, counts_Na22 = np.genfromtxt(f"{datadir}/gauge_Na-22.txt",unpack=True,max_rows=300)
