@@ -1,6 +1,11 @@
 #!/usr/bin/env py
 
+# Don't create a pycache directory from importing auxiliary files
+import sys
+sys.dont_write_bytecode = True
+
 import numpy as np
+from ecal_gauge import E, E_err
 
 data_bkg, data_sig = [], []
 
@@ -23,7 +28,7 @@ if __name__ == '__main__':
     fig = plt.figure(frameon=False)
     fig.subplots_adjust(hspace = .5, wspace=.001)
     ax_global = fig.add_subplot(111,xticks=[],yticks=[],frameon=False)
-    ax_global.set_xlabel("MAC Channel number",labelpad=30)
+    ax_global.set_xlabel("Energy (keV)",labelpad=30)
     ax_global.set_ylabel("Total event count",labelpad=50)
 
     for angle in np.arange(0,101,10):
@@ -32,9 +37,8 @@ if __name__ == '__main__':
 
         # set up subplot for angle measurement
         ax = fig.add_subplot(3,4,angle/10+1)
-        ax.plot(channel,bkg,c="C0")
-        ax.plot(channel,sig,c="C1")
-        ax.set_xticks([0,100,200])
+        ax.plot(E(channel),bkg,c="C0")
+        ax.plot(E(channel),sig,c="C1")
         ax.set_title(r"$\theta$ = {}$\!^\circ$".format(angle))
 
         # shorten yticks for more beautiful plot
@@ -46,15 +50,17 @@ if __name__ == '__main__':
         labels = [label[::-1] for label in labels]                # rereversing the strings and setting them as new labels
         ax.set_yticklabels(labels)
         ax.set_yticks(locs)
+        ax.set_xticks([0,500,1000,1500])
 
-        # short test
+        # indicate where the expected compton energy is
         E_gamma, m_e = 661.659, 510.999
         energy_theo = E_gamma/(1 + E_gamma/m_e * (1-np.cos(2*np.pi*angle/360)))
-        ax.axvline((energy_theo-30.2)/5.8)
-
+        channel_theo = (energy_theo - 30.2)/5.8
+        ax.axvline(energy_theo,c="k",ls="--")
+        ax.axvspan(energy_theo - E_err(channel_theo),energy_theo + E_err(channel_theo),alpha=0.3,color="k")
 
         ax.set_ylim(0,1.35*max(sig))
-        ax.set_xlim(0,300)
+        ax.set_xlim(0,2000)
 
     ax_global.plot(1,1,c="C0",label="no target")
     ax_global.plot(1,1,c="C1",label="Al-target")

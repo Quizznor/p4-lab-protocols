@@ -36,6 +36,7 @@ params_Co57, cmat_Co57 = optimize.curve_fit(gaussian_no_offset,Co57_cut,peak_Co5
 # params_Co60, cmat_Co60 = optimize.curve_fit(gaussian,Co60_cut,peak_Co60,p0=[300,22,10,54])
 params_Na22, cmat_Na22 = optimize.curve_fit(gaussian,Na22_cut,peak_Na22,p0=[100,98,4,0])
 params_Cs137, cmat_Cs137 = optimize.curve_fit(gaussian,Cs137_cut,peak_Cs137,p0=[150,104,4,100])
+Cs137_std = params_Cs137[2]
 
 # Perform the MAC calibration
 channels = np.array([params_Co57[1],params_Na22[1],params_Cs137[1]])
