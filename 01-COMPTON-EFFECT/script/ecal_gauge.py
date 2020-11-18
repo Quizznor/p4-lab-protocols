@@ -37,24 +37,6 @@ params_Co57, cmat_Co57 = optimize.curve_fit(gaussian_no_offset,Co57_cut,peak_Co5
 params_Na22, cmat_Na22 = optimize.curve_fit(gaussian,Na22_cut,peak_Na22,p0=[100,98,4,0])
 params_Cs137, cmat_Cs137 = optimize.curve_fit(gaussian,Cs137_cut,peak_Cs137,p0=[150,104,4,100])
 
-# plot the different spectra and each gauge measurement
-ax1 = plt.subplot2grid((5, 1), (0, 0),rowspan=3)
-ax2 = plt.subplot2grid((5, 1), (3, 0),rowspan=2, sharex=ax1)
-
-ax1.plot(channels_Co57,counts_Co57,c="red",alpha=0.4)
-ax1.plot(channels_Co60,counts_Co60,c="orange",alpha=0.4,label="Cobalt-60")
-ax1.plot(channels_Na22,counts_Na22,c="green",alpha=0.4)
-ax1.plot(channels_Cs137,counts_Cs137,c="blue",alpha=0.4)
-
-X_Co57 = np.linspace(min(Co57_cut),max(Co57_cut),1000)
-
-ax1.plot(X_Co57,gaussian_no_offset(X_Co57,*params_Co57),c="red",label="Cobalt-57")
-# ax1.plot(Co60_cut,gaussian(Co60_cut,*params_Co60),c="orange",label="Cobalt-60")
-ax1.plot(Na22_cut,gaussian(Na22_cut,*params_Na22),c="green",label="Sodium-22")
-ax1.plot(Cs137_cut,gaussian(Cs137_cut,*params_Cs137),c="blue",label="Caesium-137")
-ax1.legend()
-
-
 # Perform the MAC calibration
 channels = np.array([params_Co57[1],params_Na22[1],params_Cs137[1]])
 channels_error = [np.sqrt(cmat_Co57[1][1]),np.sqrt(cmat_Na22[1][1]),np.sqrt(cmat_Cs137[1][1])]
@@ -63,38 +45,57 @@ energies = np.array([122.061,546.544,661.659])  # keV
 X = np.linspace(0,300,300)
 params, cov = np.polyfit(channels, energies, 1, cov=True)
 
-linear_error = lambda x: np.sqrt( np.array([x,1]).T @ cov @ np.array([x,1]) )
-MAC_calibration = np.poly1d(params)
-chi_sqr = np.sum( (energies-MAC_calibration(channels))**2/linear_error(channels)**2 )/(len(energies)-2)
+E_err = lambda x: np.sqrt( np.array([x,1]).T @ cov @ np.array([x,1]) )
+E = np.poly1d(params)
+chi_sqr = np.sum( (energies-E(channels))**2/E_err(channels)**2 )/(len(energies)-2)
 
-upper = MAC_calibration(X)+linear_error(X)
-lower = MAC_calibration(X)-linear_error(X)
+if __name__ == '__main__':
 
-# print out fit results
-print("Parameters for MAC linear regression")
-print(f"Slope: a = {params[0]:.1f} +- {np.sqrt(cov[0][0]):.1f}")
-print(f"Intercept: b = {params[1]:.1f} +- {np.sqrt(cov[1][1]):.1f}")
-print(f"reduced Chi_sqr = {chi_sqr:.3f}",)
+    # plot the different spectra and each gauge measurement
+    ax1 = plt.subplot2grid((5, 1), (0, 0),rowspan=3)
+    ax2 = plt.subplot2grid((5, 1), (3, 0),rowspan=2, sharex=ax1)
 
-for i,channel in enumerate(channels):
-    ax1.axvline(channel,ls="--",c="black")
-    ax2.axvline(channel,ls="--",c="black")
+    ax1.plot(channels_Co57,counts_Co57,c="red",alpha=0.4)
+    ax1.plot(channels_Co60,counts_Co60,c="orange",alpha=0.4,label="Cobalt-60")
+    ax1.plot(channels_Na22,counts_Na22,c="green",alpha=0.4)
+    ax1.plot(channels_Cs137,counts_Cs137,c="blue",alpha=0.4)
 
-ax2.plot(X,MAC_calibration(X),zorder=1)
-ax2.fill_between(X,lower,upper,alpha=0.4)
-ax2.scatter(channels,energies,s=70,c="black",zorder=2)
+    X_Co57 = np.linspace(min(Co57_cut),max(Co57_cut),1000)
 
-ax1.axvline(195.560,c="k",ls="--",alpha=0.4)
-ax1.axvline(222.777,c="k",ls="--",alpha=0.4)
-ax2.axvline(195.560,c="k",ls="--",alpha=0.4)
-ax2.axvline(222.777,c="k",ls="--",alpha=0.4)
+    ax1.plot(X_Co57,gaussian_no_offset(X_Co57,*params_Co57),c="red",label="Cobalt-57")
+    # ax1.plot(Co60_cut,gaussian(Co60_cut,*params_Co60),c="orange",label="Cobalt-60")
+    ax1.plot(Na22_cut,gaussian(Na22_cut,*params_Na22),c="green",label="Sodium-22")
+    ax1.plot(Cs137_cut,gaussian(Cs137_cut,*params_Cs137),c="blue",label="Caesium-137")
+    ax1.legend()
 
-ax1.set_xlim(0,300)
-ax1.set_ylim(0,1250)
-ax2.set_ylim(0,2000)
-ax1.set_ylabel("Electron count")
-ax2.set_ylabel("Energy (keV)")
-ax2.set_xlabel("MAC Channel number")
-plt.subplots_adjust(wspace=0, hspace=0.7)
+    upper = E(X) + E_err(X)
+    lower = E(X) - E_err(X)
 
-plt.show()
+    # print out fit results
+    print("Parameters for MAC linear regression")
+    print(f"Slope: a = {params[0]:.1f} +- {np.sqrt(cov[0][0]):.1f}")
+    print(f"Intercept: b = {params[1]:.1f} +- {np.sqrt(cov[1][1]):.1f}")
+    print(f"reduced Chi_sqr = {chi_sqr:.3f}")
+
+    for i,channel in enumerate(channels):
+        ax1.axvline(channel,ls="--",c="black")
+        ax2.axvline(channel,ls="--",c="black")
+
+    ax2.plot(X,E(X),zorder=1)
+    ax2.fill_between(X,lower,upper,alpha=0.4)
+    ax2.scatter(channels,energies,s=70,c="black",zorder=2)
+
+    ax1.axvline(195.560,c="k",ls="--",alpha=0.4)
+    ax1.axvline(222.777,c="k",ls="--",alpha=0.4)
+    ax2.axvline(195.560,c="k",ls="--",alpha=0.4)
+    ax2.axvline(222.777,c="k",ls="--",alpha=0.4)
+
+    ax1.set_xlim(0,300)
+    ax1.set_ylim(0,1250)
+    ax2.set_ylim(0,2000)
+    ax1.set_ylabel("Electron count")
+    ax2.set_ylabel("Energy (keV)")
+    ax2.set_xlabel("MAC Channel number")
+    plt.subplots_adjust(wspace=0, hspace=0.7)
+
+    plt.show()

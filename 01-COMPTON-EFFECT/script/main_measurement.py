@@ -47,6 +47,12 @@ if __name__ == '__main__':
         ax.set_yticklabels(labels)
         ax.set_yticks(locs)
 
+        # short test
+        E_gamma, m_e = 661.659, 510.999
+        energy_theo = E_gamma/(1 + E_gamma/m_e * (1-np.cos(2*np.pi*angle/360)))
+        ax.axvline((energy_theo-30.2)/5.8)
+
+
         ax.set_ylim(0,1.35*max(sig))
         ax.set_xlim(0,300)
 
