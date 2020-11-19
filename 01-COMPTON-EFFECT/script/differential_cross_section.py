@@ -18,7 +18,6 @@ energy, energy_err = E(channels), E_err(channels)
 E_gamma, m_e = 661.659, 510.999
 angles = np.arange(20,101,10)
 rates, rates_err = [], []
-Cs137_std = E(Cs137_std)
 
 for angle in angles:
 
@@ -33,31 +32,51 @@ for angle in angles:
     + (N/efficiency(energy_theo) * efficiency_err(energy_theo))**2 ) )
 
 # solid angle
-r_crystal = 0.5*2.55                                    # cm
-d_target_crystal = 21.5                                 # cm
-dOmega = np.pi*(r_crystal)**2/(d_target_crystal)**2     # sr
+A_crystal = np.pi* (2.55/2)**2           # cm²
+d_target_crystal = 21.5                  # cm
+dOmega = A_crystal/(d_target_crystal)**2 # sr
+dOmega_err = 0
+print(f"\ndOmega = {dOmega:.5f} +- 0 sr")
+# TODO: get solid angle error
 
-# radiative flux
-years_since_1971 = 49.49                                # years
-phi0 = 10000 * 1.54e6                                   # 1/(m²s)
-phi_now = phi0*np.exp(-years_since_1971*np.log(2)/30)   # 1/(m²s)
+# radiative flux (assum phi_0 was measured on 15th july 1971)
+days_since_phi_0 = 18023
+days_since_phi_0_err = 15
+half_lives = days_since_phi_0 / (30.17 * 365.25)
+ratio_remaining = np.power(0.5, half_lives )
+phi_0 =  1.54e6 * 1e4 * ratio_remaining     # per m²s
+phi_0_err = 0.09e6 * 1e4 * ratio_remaining  # per m²s
+print(f"phi_0  = {phi_0:0.3e} +- {phi_0_err:0.3e} 1/m²s")
+
+# volume target
+d_target, l_target = 1.0, 1.0      # cm
+d_target_err, l_target_err = 0.05,0.05
+A_target = np.pi * (d_target/2)**2 # cm²
+A_target_err = np.pi*(d_target/2)*d_target_err
+V_target = A_target * l_target     # cm³
+V_err = np.sqrt( (A_target*l_target_err)**2
+               + (l_target*A_target_err)**2 )
+print(f"V_target = {V_target:0.3f} +- {V_err:0.3f} cm³")
 
 # collision partners
-d_target, l_target = 0.01, 0.01                         # m
-rho_al, N_a = 2700, 6.022e13                            # kg/m³
-A_al, Z_al = 26.982, 13
-n = N_a/A_al * Z_al * rho_al * np.pi * (d_target/2)**2 * l_target
+rho_al, N_a = 2.7, 6.022e23     # g/cm³, 1/mol
+A_al, Z_al = 26.982, 13         # g/mol, 1
+N_mole = N_a/A_al * Z_al        # 1/g
+n =  N_mole * rho_al * V_target # 1
+n_err = n * V_err/V_target      # 1
+print(f"n_elec = {n:0.3e} +- {n_err:0.3e} electrons")
+
+# Putting it all together for cross section
+rates, rates_err = np.array(rates), np.array(rates_err)
+denumerator = dOmega * phi_0 * n
+KN_exp = rates/denumerator
+KN_exp_err = np.sqrt( ( rates_err/denumerator )**2 +
+    ( 1/denumerator * (n_err/n + phi_0_err/phi_0) )**2)
 
 # theoretical values from Klein-Nishina
 angle_theo, _, KN_theo = np.loadtxt("../data/klein_nishina_theo.txt",unpack=True)
-KN_theo*=1e-25                                    # m²
 
-KN_exp = np.array(rates)/dOmega * 1/(phi_now * n)       # 1/s 1/sr m²s = m²/sr
+plt.plot(angle_theo,KN_theo*1e-25)
+plt.errorbar(angles,KN_exp,yerr=KN_exp_err)
 
-fig, ax1 = plt.subplots()
-ax2 = ax1.twinx()
-
-# ax1.scatter(angles[2:],KN_exp[2:])
-ax1.errorbar(angles,KN_exp)
-ax2.plot(angle_theo,KN_theo)
 plt.show()
