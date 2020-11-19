@@ -4,12 +4,12 @@
 \label{sec:differential-cross-section}
 
 As a second task, the validity of the Klein-Nishina formula presented in
-\autoref{eq:klein-nishina} is tested. For this purpose, the spectrometer is placed 
-at various angles relative to the beam path. For every angle two measurements of 
-\SI{300}{\second} each are taken. One measurement with a cylindrical aluminum target 
-in the beam path that allows for compton scattering. The second measurement is 
-conducted without any target and will help quantify the background noise measured 
-by the spectrometer. The resulting distribution of electron energies is shown in 
+\autoref{eq:klein-nishina} is tested. For this purpose, the spectrometer is placed
+at various angles relative to the beam path. For every angle two measurements of
+\SI{300}{\second} each are taken. One measurement with a cylindrical aluminum target
+in the beam path that allows for compton scattering. The second measurement is
+conducted without any target and will help quantify the background noise measured
+by the spectrometer. The resulting distribution of electron energies is shown in
 \autoref{fig:diff-measurements} for all measurements.
 
 \begin{figure}
@@ -22,15 +22,15 @@ by the spectrometer. The resulting distribution of electron energies is shown in
 \end{figure}
 
 Before processing the data further, the abnormally high counts for the measurements
-at $0$ and $10$ degrees have to be noted. The gamma spectra look identical whether a 
-target is placed in the beam path or not. In this case $\gamma$'s can directly 
+at $0$ and $10$ degrees have to be noted. The gamma spectra look identical whether a
+target is placed in the beam path or not. In this case $\gamma$'s can directly
 propagate from the $^{137}$Cs-source to the scintillating crystal. We are not
 measuring the compton spectrum, but rather activity of the $\gamma$ source. The two
 measurements have to be discarded in the following analysis.
 
 Furthermore, the detector efficiency has to be evaluated. For this purpose a second
-order polynomial is fitted to Plot 7.10 (p.134) in \cite{Sch17}. The parameters of 
-the best fit result are given below. 
+order polynomial is fitted to Plot 7.10 (p.134) in \cite{Sch17}. The parameters of
+the best fit result are given below.
 
 \begin{align*}
 \label{eq:eq:efficiency-parameters}
@@ -41,9 +41,9 @@ the best fit result are given below.
 \end{align*}
 
 In the subsequent analysis, the counts for each measured channel are normalised with
-respect to the detector efficiency at the energy corresponding to the specific 
-channel (see \autoref{ecal-eq}). All detector hits are summed up and devided by the 
-measurement length to get the integrated rate at one specific solid angle 
+respect to the detector efficiency at the energy corresponding to the specific
+channel (see \autoref{eq:ecal-eq}). All detector hits are summed up and devided by the 
+measurement length to get the integrated rate at one specific solid angle
 $\Delta\Omega$ as a function of the scattering angle $\theta$.
 From this, the differential cross section $\frac{\d\sigma}{\d\Omega}$ can be obtained
 as lined out in \cite{Sch17}.
@@ -57,7 +57,7 @@ where $\Delta\Omega$ is the solid angle covered by the scintillator detecor as s
 from the target position. $\upphi_0$ is the flux of photons hitting the target. $n_e$
 holds information about the number of scattering partners (i.e. electrons) available
 to a single photon. With information given in \cite{Sch17} they can be calculated as
-shown below. Note that in order to quantify errors in the mentioned variables, all 
+shown below. Note that in order to quantify errors in the mentioned variables, all
 information given by \cite{Sch17} is assumed to be exact.
 
 \begin{align*}
@@ -81,14 +81,14 @@ holds an uncertainty $\Delta S$, which propagates like
 	\caption{The experimentally measured differential cross section is compared
 	to the theoretically predicted values given by the Klein-Nishina formula.
 	While the gathered data is in good accordance with the theory, the measured
-	values are offset by a constant. This indicates the presence of systematic 
+	values are offset by a constant. This indicates the presence of systematic
 	errors.}
 	\label{fig:diff-cross-section}
 \end{figure}
 
 The results of this analysis are presented in \autoref{fig:diff-cross-section}. They
-withstand the comparison to theoretical values given by \autoref{eq:klein-nishina}. 
-Worrysome is however a constant offset by which the measurements deviate from 
+withstand the comparison to theoretical values given by \autoref{eq:klein-nishina}.
+Worrysome is however a constant offset by which the measurements deviate from
 theoretical data. The offset indicates the presence of systematic errors in the
 experiment. One certain error source may be the imperfect energy-channel calibration
 discussed in \autoref{sec:ecal}.
