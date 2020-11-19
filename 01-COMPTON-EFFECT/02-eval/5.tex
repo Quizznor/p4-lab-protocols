@@ -1,9 +1,34 @@
 %!TEX root = ../main.tex
 
-\section{Z dependence}
+\section{Z-dependency of differential cross section}
 \label{sec:z-dependence}
 
 Lastly, the differential cross section $\frac{\d\sigma}{\d\Omega}$ at one specific
-angle ($\theta = \SI{20}{\degree}$) is compared for different elements. 
+angle ($\theta = \SI{20}{\degree}$) is compared for different elements. Assuming
+\autoref{eq:Klein-Nishina} holds for a photon scattering off a single electron, the 
+cross section of the photon scattering off any electron inside an atom should scale
+like
+
+\begin{equation}
+\label{eq:z-dependence}
+\left( \frac{\d\sigma}{\d\Omega} \right)_\text{Atom} = Z\cdot\left( \frac{\d\sigma}{\d\Omega} \right)_\text{electron} 
+\end{equation}
+
+This espically implies that the quantity $\frac{R\cdot A}{\rho\cdot Z}$ connecting
+the measured event rate $R$ with the material specific density $\rho$, atomic number 
+$Z$, and atomic mass number $A$ should be a constant! This is tested by placing
+targets of the same geometry, but different materials into the beam path. The number
+of events seen by the scintillator detector is counted for $\SI{300}{\second}$. The
+results as well as reference data is listed in \autoref{tab:z-depencence}. As can be
+seen in the table, the quantity $\frac{R\cdot A}{\rho\cdot Z}$ is not constant. This
+cannot be attributed to a faulty energy calibration, as all systematic errors remain 
+the same for these measurements and should cancel out upon comparison. The reason for
+the nonconformity is unclear and may be caused by untreated detector systematics.
+
+The measured rate for the lead target is a clear outlier at a mean deviation of 
+$~30\%$ relative to other measurements. This is most likely caused by the poor
+material quality of the lead target. Due to previous handling the top part of the
+lead target broke off. It therefore had a smaller geometry than all other targets, 
+the measured rate is expected to drop accordingly.
 
 \input{./tab/z-dependence}
