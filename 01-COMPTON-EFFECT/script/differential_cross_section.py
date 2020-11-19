@@ -66,7 +66,7 @@ rates, rates_err = np.array(rates), np.array(rates_err)
 denumerator = dOmega * phi_0 * n
 KN_exp = rates/denumerator *1e4 # cm²
 KN_exp_err = 1e4 * np.sqrt((rates_err/denumerator )**2 +
-    ( 1/denumerator * (n_err/n + phi_0_err/phi_0) )**2)
+    ( rates/denumerator * (n_err/n + phi_0_err/phi_0) )**2)
 
 # theoretical values from Klein-Nishina
 angle_theo, _, KN_theo = np.loadtxt("../data/klein_nishina_theo.txt",unpack=True)
@@ -78,7 +78,7 @@ if __name__ == '__main__':
     print(f"n_elec = {n:0.3e} +- {n_err:0.3e} electrons")
 
     plt.plot(angle_theo,KN_theo,label="Klein-Nishina")
-    plt.errorbar(angles,KN_exp*1e25,xerr=1,yerr=10*KN_exp_err*1e25,ls="none",label="measured")
+    plt.errorbar(angles,KN_exp*1e25,xerr=1,yerr=KN_exp_err*1e25,ls="none",label="measured")
 
     plt.xlabel(r"scattering angle ($^\circ$)")
     plt.ylabel(r"$\frac{\mathrm{d}\sigma}{\mathrm{d}\Omega} (10^{-25}$ cm)")
