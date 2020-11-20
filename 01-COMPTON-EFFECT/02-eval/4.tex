@@ -11,19 +11,25 @@ can be manipulated.
 \frac{1}{E_{\gamma,f}} = \frac{1}{E_{\gamma,i}} + \frac{1}{m_e}\cdot\left(1-\cos\theta\right).
 \end{equation}
 
-The photon energy $E_{\gamma,f}$ post-scattering can be directly extracted from the
+According to \autoref{eq:linear-regression} the plot of $\frac{1}{E_{\gamma,f}}$ over
+$(1-\cos\theta)$ should be a line with slope $\frac{1}{m_e}$ and intercept 
+$\frac{1}{E_{\gamma,i}}$. A linear regression should be able to estimate $m_e$ from
+the measurement data gathered in \autoref{sec:differential-cross-section}.
+
+The photon energy $E_{\gamma,f}$ post-scattering can be directly extracted from the 
 location of the gaussian peaks present in the measured compton spectra. For the sake
 of a more solid analysis, a normal distribution is fitted to each peak. The results
-of these processes are listed in \autoref{tab:energy-shift}. The mean of the best fit
-is then taken as $E_{\gamma,f}$ in the subsequent discussion.
+of these processes are listed in \autoref{tab:energy-shift}. The median of the best 
+fit result is then taken as $E_{\gamma,f}$ in the subsequent discussion.
 
 \input{./tab/energy-shift}
 
 It has to be mentioned that the linear regression used to gather information about
-$m_e$ only has one free parameter, the electron mass itself. The inverse initial
-photon energy is manually set to \SI{1/661.659}{\per\kilo\electronvolt} and assumed
-to be free of any errors. This is necessary to ensure a stable (and reasonably
-sensible) fit result. The analysis finds the best fit parameter
+$m_e$ only has one free parameter, the electron mass itself. The initial photon 
+energy is manually set to the theoretical transition energy \SI{661.659}{\kilo
+\electronvolt} and assumed to be free of any errors. This is necessary to ensure a 
+stable (and reasonably  sensible) fit result. The analysis finds the best fit 
+parameter
 
 \begin{equation}
 \label{eq:electron-mass-estimate}
@@ -32,10 +38,10 @@ sensible) fit result. The analysis finds the best fit parameter
 
 which deviates from the literature value (\SI{510.999}{\kilo\electronvolt}
 \cite{patrignani2016review}) by about 10\%. It does not lay within the uncertainty
-bounds of the "correct" value. Possible reasons are an underestimation of systematic
-errors in the energy calibration. Correlations between the respective measurements
-are also expected to play a part. The results of this analysis are visualised in
-\autoref{fig:energy-shift}
+bounds of the "correct" value either. Possible reasons are an underestimation of 
+systematic errors in the energy calibration. Correlations between the respective 
+measurements are also expected to play a part. The results of this analysis are 
+visualised in \autoref{fig:energy-shift}.
 
 \begin{figure}
 	\centering
