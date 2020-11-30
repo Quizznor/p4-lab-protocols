@@ -4,7 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy import optimize as opt
 
-channels, data = np.genfromtxt("../data/calib.txt",unpack=True,skip_header=40,skip_footer=900)
+channels, data = np.genfromtxt("../data/Calibration.txt",unpack=True,skip_header=40,skip_footer=900)
 channel_signal, data_signal = channels[20:34], data[20:34]
 
 def breit_wigner(x,A,omega,gamma):
