@@ -42,7 +42,11 @@ def C_to_E(channel):
     return 14.4/C * channel, 14.4/(C-C_err) * channel - 14.4/(C+C_err) * channel
 
 if __name__ == "__main__":
-    print(f"\n\nBest fit to 14.4 keV line - CHANNEL #{C:.3f}+-{C_err:.3f}\n")
+    print(f"\n\nBest fit to 14.4 keV line - CHANNEL #{C:.3f}+-{C_err:.3f}")
+    print(f"A, omega_0, gamma = {popt}")
+    print(f"Errs = +-{np.sqrt(np.diag(pcov))}")
+    print("COV matrix given as:")
+    print(pcov)
 
     plt.rcParams.update({'font.size': 16})
     plt.rc('axes', labelsize=26)
