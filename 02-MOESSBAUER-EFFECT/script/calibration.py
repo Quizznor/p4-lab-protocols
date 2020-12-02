@@ -1,4 +1,4 @@
-#!/usr/bin/env py
+#!/usr/bin/env python3
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -39,7 +39,7 @@ C, C_err = popt[1],np.sqrt(pcov[1][1])
 def C_to_E(channel):
     # 14.4 keV corresponds to the transition we are looking at
     # returns energy as well as error in energy to a corresponding channel
-    return 14.4/C * channel, 14.4/(C-Cerr) * channel - 14.4/(C+Cerr) * channel
+    return 14.4/C * channel, 14.4/(C-C_err) * channel - 14.4/(C+C_err) * channel
 
 if __name__ == "__main__":
     print(f"\n\nBest fit to 14.4 keV line - CHANNEL #{C:.3f}+-{C_err:.3f}\n")
