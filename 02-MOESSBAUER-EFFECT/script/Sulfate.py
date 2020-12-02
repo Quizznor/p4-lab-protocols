@@ -1,34 +1,45 @@
 #!/usr/bin/env python3
 
-import numpy as np
+import sys
+sys.dont_write_bytecode = True
+
+from mössbauer_aux import print_results
+from mössbauer_aux import perform_fits
+from mössbauer_aux import create_bins
+from mössbauer_aux import draw_cuts
+from mössbauer_aux import draw_fits
+from mössbauer_aux import inv_bw
 import matplotlib.pyplot as plt
-from calibration import C_to_E
+import numpy as np
 
-channel, data = np.loadtxt("../data/Sulfate.txt",unpack=True)
-energy, energy_err = C_to_E(channel)
-data1, data2 = np.split(data,2)
-E1, E2 = np.split(energy,2)
-E1_err, E2_err = np.split(energy_err,2)
+channels, data = np.loadtxt("../data/Sulfate.txt",unpack=True)
+(ch1, ch2), (d1, d2) = np.split(channels,2), np.split(data,2)
 
-def create_bins(x,x_err,resolution=64):
-    # It's implicitly assumed that this function receives a 512-long input
-    # array. Other sizes might break some behaviour at the bin borders
-    bins, bins_err = np.zeros(resolution), np.zeros(resolution)
-    bin_contents = np.split(x,resolution)
-    bin_contents_err = np.split(x_err,resolution)
+ch1_binned, ch2_binned = create_bins(ch1), create_bins(ch2)
+d1_binned, d1_err_binned = create_bins(d1,np.sqrt(d1))
+d2_binned, d2_err_binned = create_bins(d2,np.sqrt(d2))
 
-    for i in range(resolution):
-        bins[i]+=np.sum(bin_contents[i])
-        bins_err[i]+=np.sqrt( np.sum(bin_contents_err[i]**2) )
+plt.scatter(ch1_binned,d1_binned,marker="s",s=5), plt.scatter(ch2_binned,d2_binned,s=5)
+plt.errorbar(ch1_binned,d1_binned,yerr=d1_err_binned,ls="None",capsize=1.5,elinewidth=0.4)
+plt.errorbar(ch2_binned,d2_binned,yerr=d2_err_binned,ls="None",capsize=1.5,elinewidth=0.4)
 
-    return bins, bins_err
+# eyeballing this works good enough, the below cuts are given for res = 128
+d1_cuts = [0,58,-1]
+d2_cuts = [0,68,-1]
+# draw_cuts(ch1_binned,d1_cuts)
+# draw_cuts(ch2_binned,d2_cuts)
 
-def inv_breit_wigner(x,O,A,w,g):
-    return O - A/( (x**2-w**2)**2 + g**2*w**2)
+fits_d1 = perform_fits(ch1_binned,d1_binned,d1_err_binned,d1_cuts)
+fits_d2 = perform_fits(ch2_binned,d2_binned,d2_err_binned,d2_cuts)
+draw_fits(ch1_binned,fits_d1,d1_cuts)
+draw_fits(ch2_binned,fits_d2,d2_cuts)
 
-E1_binned, E1_binned_err = create_bins(E1,E1_err,resolution=32)
-data1_binned, data1_binned_err = create_bins(data1,np.sqrt(data1)/len(data1),resolution=32)
+print("\nChannel 1:")
+print_results(fits_d1)
 
-plt.errorbar(E1_binned,data1_binned,yerr=data1_binned_err*40,ls="None",capsize=2)
-# plt.errorbar(E1,data1,xerr=E1_err,yerr=np.sqrt(data1),ls="None")
+print("\nChannel 2:")
+print_results(fits_d2)
+
+plt.xlabel("MCS channel number")
+plt.ylabel("Binned count")
 plt.show()

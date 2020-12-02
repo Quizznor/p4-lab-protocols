@@ -12,7 +12,7 @@ from mössbauer_aux import inv_bw
 import matplotlib.pyplot as plt
 import numpy as np
 
-channels, data = np.loadtxt("../data/Iron.txt",unpack=True)
+channels, data = np.loadtxt("../data/Vacromium.txt",unpack=True)
 (ch1, ch2), (d1, d2) = np.split(channels,2), np.split(data,2)
 
 ch1_binned, ch2_binned = create_bins(ch1), create_bins(ch2)
@@ -24,8 +24,8 @@ plt.errorbar(ch1_binned,d1_binned,yerr=d1_err_binned,ls="None",capsize=1.5,eline
 plt.errorbar(ch2_binned,d2_binned,yerr=d2_err_binned,ls="None",capsize=1.5,elinewidth=0.4)
 
 # eyeballing this works good enough, the below cuts are given for res = 128
-d1_cuts = [0,42,54,64,74,86,-1]
-d2_cuts = [0,42,52,62,72,84,-1]
+d1_cuts = [0,-1]
+d2_cuts = [0,-1]
 # draw_cuts(ch1_binned,d1_cuts)
 # draw_cuts(ch2_binned,d2_cuts)
 
