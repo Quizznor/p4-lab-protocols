@@ -23,7 +23,8 @@ d1_binned, d1_err_binned = create_bins(d1,np.sqrt(d1))
 d2_binned, d2_err_binned = create_bins(d2,np.sqrt(d2))
 d2_binned, d2_err_binned = d2_binned[::-1], d2_err_binned[::-1]
 
-plt.scatter(ch1_binned,d1_binned,marker="s",s=5,label="Ch1 data",zorder=50), plt.scatter(ch2_binned,d2_binned,s=10,label="Ch2 data",zorder=50)
+plt.scatter(ch1_binned,d1_binned,marker="s",s=5,label="Ch1 data",zorder=50)
+plt.scatter(ch2_binned,d2_binned,s=10,label="Ch2 data",zorder=50)
 plt.errorbar(ch1_binned,d1_binned,yerr=d1_err_binned,ls="None",capsize=1.5,elinewidth=0.4,zorder=49)
 plt.errorbar(ch2_binned,d2_binned,yerr=d2_err_binned,ls="None",capsize=1.5,elinewidth=0.4,zorder=49)
 

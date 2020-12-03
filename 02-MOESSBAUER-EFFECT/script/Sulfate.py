@@ -12,27 +12,33 @@ from mössbauer_aux import inv_bw
 import matplotlib.pyplot as plt
 import numpy as np
 
+plt.rcParams.update({'font.size': 24})
+plt.rc('axes', labelsize=28)
+
 channels, data = np.loadtxt("../data/Sulfate.txt",unpack=True)
 (ch1, ch2), (d1, d2) = np.split(channels,2), np.split(data,2)
 
-ch1_binned, ch2_binned = create_bins(ch1), create_bins(ch2)
+ch1_binned, ch2_binned = create_bins(ch1), create_bins(ch2)-512
 d1_binned, d1_err_binned = create_bins(d1,np.sqrt(d1))
 d2_binned, d2_err_binned = create_bins(d2,np.sqrt(d2))
+d2_binned, d2_err_binned = d2_binned[::-1], d2_err_binned[::-1]
 
-plt.scatter(ch1_binned,d1_binned,marker="s",s=5), plt.scatter(ch2_binned,d2_binned,s=5)
-plt.errorbar(ch1_binned,d1_binned,yerr=d1_err_binned,ls="None",capsize=1.5,elinewidth=0.4)
-plt.errorbar(ch2_binned,d2_binned,yerr=d2_err_binned,ls="None",capsize=1.5,elinewidth=0.4)
+plt.scatter(ch1_binned,d1_binned,marker="s",s=5,label="Ch1 data",zorder=50)
+plt.scatter(ch2_binned,d2_binned,s=10,label="Ch2 data",zorder=50)
+plt.errorbar(ch1_binned,d1_binned,yerr=d1_err_binned,ls="None",capsize=1.5,elinewidth=0.4,zorder=49)
+plt.errorbar(ch2_binned,d2_binned,yerr=d2_err_binned,ls="None",capsize=1.5,elinewidth=0.4,zorder=49)
 
 # eyeballing this works good enough, the below cuts are given for res = 128
 d1_cuts = [0,58,-1]
-d2_cuts = [0,68,-1]
+d2_cuts = [0,58,-1]
 # draw_cuts(ch1_binned,d1_cuts)
 # draw_cuts(ch2_binned,d2_cuts)
 
-fits_d1 = perform_fits(ch1_binned,d1_binned,d1_err_binned,d1_cuts)
-fits_d2 = perform_fits(ch2_binned,d2_binned,d2_err_binned,d2_cuts)
-draw_fits(ch1_binned,fits_d1,d1_cuts)
-draw_fits(ch2_binned,fits_d2,d2_cuts)
+fits_d1 = perform_fits(ch1_binned,d1_binned,d1_err_binned,d1_cuts,ch1=True)
+fits_d2 = perform_fits(ch2_binned,d2_binned,d2_err_binned,d2_cuts,ch1=False)
+
+draw_fits(ch1_binned,fits_d1,d1_cuts,ch1=True)
+draw_fits(ch2_binned,fits_d2,d2_cuts,ch1=False)
 
 print("\nChannel 1:")
 print_results(fits_d1)
@@ -40,6 +46,9 @@ print_results(fits_d1)
 print("\nChannel 2:")
 print_results(fits_d2)
 
-plt.xlabel("MCS channel number")
-plt.ylabel("Binned count")
+plt.xlabel("MCS channel number",labelpad=20)
+plt.ylabel("Binned count",labelpad=20)
+# plt.ylim(8500,10800)
+plt.xlim(0,512)
+plt.legend()
 plt.show()

@@ -33,7 +33,7 @@ def create_bins(x,x_err=None,res=128):
 
 # The shape fitted to the absorption peaks
 def inv_bw(x,O,A,G,w0):
-    return O - A * 0.5*G/( (x**2-w0**2)**2 + (0.5*G)**2 )
+    return O - A * G/( (x-w0)**2 + (0.5*G)**2 )
 
 # Fit several inv_breit_wigner to a data set. <cuts> specifies
 # the indices at which the datasets will be split for analysis.
@@ -46,14 +46,12 @@ def perform_fits(x_data,y_data,y_err,cuts,ch1):
 
         # estimating the initial guess and fit boundaries
         O_i = np.mean([y[0],y[-1]])
+        A_i, G_i = 2e3, 1000
         w_i = x[np.argmin(y)]
-        A_i = 3e5
-        G_i = 1000
-        initial_guess = np.array([O_i,A_i,w_i,G_i])
 
-        lower, higher = [O_i-1e3,0,w_i-10,0], [O_i+1e3,np.inf,w_i+10,np.inf]
-        popt, pcov = curve_fit(inv_bw,x,y,initial_guess,err,bounds=[lower,higher],maxfev=int(1e5),method="dogbox")
-        pcov = np.delete(np.delete(pcov,1,1),1,0) # get rid of errors in A
+        initial_guess = np.array([O_i,A_i,G_i,w_i])
+        lower, higher = [O_i-1e3,0,0,w_i-4], [O_i+1e3,3e3,5000,w_i+4]
+        popt, pcov = curve_fit(inv_bw,x,y,initial_guess,err,bounds=[lower,higher],maxfev=int(1e5))
         fit_results.append([popt, pcov])
 
     return fit_results
@@ -67,17 +65,18 @@ def draw_fits(x_data,fit_results,cuts,ch1):
     for i in range(len(cuts[:-1])):
         low, high = cuts[i], cuts[i+1]
         X = np.linspace(x_data[low],x_data[high],10000)
-        (O,A,w,g), pcov = fit_results[i][0], fit_results[i][1]
-        model = inv_bw(X,O,A,w,g)
+        (O,A,G,w), pcov = fit_results[i][0], fit_results[i][1]
+        model = inv_bw(X,O,A,G,w)
 
         # calculate 1-sigma errorband around fit
-        denum = ( (X**2 - w**2)**2 + g**2*w**2)
-        dw = -(4*w*(X**2-w**2) + 2*g**2*w)/denum**2
-        dg = -2*g*w/denum**2
+        pcov = np.delete(np.delete(pcov,1,1),1,0) # get rid of errors in A
+        denum = ( (X - w)**2 + 0.25*G**2 )
+        dw = -2*(X-w)/denum**2
+        dG = -0.5*G/denum**2
 
         err = np.zeros_like(X)
         for i in range(len(X)):
-            grad = np.array([1,dw[i],dg[i]])
+            grad = np.array([1,dG[i],dw[i]])
             err[i] = np.sqrt( grad.T @ pcov @ grad )
 
         plt.plot(X,model,lw=lw,ls=ls,c=c)
@@ -89,21 +88,17 @@ def draw_cuts(x_data,cuts):
         plt.axvline(x_data[cut],c="gray",ls="--",zorder=1)
 
 # Print out results of optimization
-def print_results(fit_results):
+def print_results(fit_results, full=False):
 
     for i in range(len(fit_results)):
-        O, A = fit_results[i][0][0], fit_results[i][0][1]
-        w, G = fit_results[i][0][2], fit_results[i][0][3]
-        w_err = np.sqrt( np.diag(fit_results[i][1])[1] )
-        G_err = np.sqrt( np.diag(fit_results[i][1])[2] )
-        # wg_corr_sqr = fit_results[i][1][1,2]
+        O, O_err = fit_results[i][0][0], np.sqrt( np.diag(fit_results[i][1])[0] )
+        A, A_err = fit_results[i][0][1], np.sqrt( np.diag(fit_results[i][1])[1] )
+        G, G_err = fit_results[i][0][2], np.sqrt( np.diag(fit_results[i][1])[2] )
+        w, w_err = fit_results[i][0][3], np.sqrt( np.diag(fit_results[i][1])[3] )
 
-        # FWHM = np.sqrt(w**2 + g*w) - np.sqrt(w**2 - g*w)
-        # dw = 0.5 * ( (2*w+g)/np.sqrt(w**2 + g*w) - (2*2-g)/np.sqrt(w**2 - g*w) )
-        # dg = 0.5 * ( g/np.sqrt(w**2 + g*w) + g/np.sqrt(w**2 - g*w) )
-        # FWHM_err = np.sqrt( dw**2 * w_err**2 + dg**2 * g_err**2 + dw*dg*wg_corr_sqr )
+        print(f"Peak {i+1}: FWHM = {G:.6f} +- {G_err:.6f}")
 
-        print(f"{i+1}: A = {A:.1f}, O = {O:.1f}")
-        print(f"{i+1}: w_0 = {w:.1f} +- {w_err:.2f}, g = {G:.6f} +- {G_err:.6f}\n")
-        # print(FWHM)
-        # print(f" `-> FWHM = {FWHM:.6f} +- {FWHM_err:.6f}\n")
+        if full:
+            print(f"Peak {i+1}: A = {A:.1f} +- {A_err:.1f}")
+            print(f"Peak {i+1}: O = {O:.1f} +- {O_err:.1f}")
+            print(f"Peak {i+1}: w_0 = {w:.1f} +- {w_err:.2f}\n")
