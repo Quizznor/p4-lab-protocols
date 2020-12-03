@@ -2,8 +2,8 @@
 
 import numpy as np
 import matplotlib.pyplot as plt
-plt.rcParams.update({'font.size': 16})
-plt.rc('axes', labelsize=26)
+plt.rcParams.update({'font.size': 24})
+plt.rc('axes', labelsize=28)
 
 def breit_wigner(x,omega,gamma):
 
@@ -46,5 +46,5 @@ plt.fill_between(X,0,overlap,color="k",alpha=0.7,label="Resonant absorption")
 plt.xlim(E-2.5*shift,E+2.5*shift)
 plt.yticks([],[])
 plt.ylim(0.01,1.3)
-plt.legend(loc="upper right")
+plt.legend(loc="upper right",fontsize=20)
 plt.show()
