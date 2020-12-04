@@ -9,10 +9,11 @@ absorption it is sufficient to merely count the number of photons transmitted th
 an absorber to gather information about its atomic energy levels and existing nuclear
 transitions. However, in order to allow for more detailed analysis in the following
 evaluation the relative difference of transition energies needs to be quantified.
-For this purpose an energy calibration is performed by fitting a modified Lorentzian
-curve $f(\mathcal{C})$ given in \autoref{eq:ecal-fit} to the $\gamma$-spectrum of
-$^{57}$Co. The results of this analysis are also given below. The found best fit as
-well as the gathered $\gamma$-spectrum are shown in \autoref{fig:ecal}
+For this purpose as well as a proof of concept, The $\gamma$-spectrum of $^{57}$Co is
+measured. Visible in the observed spectrum in \autoref{fig:ecal} is a characteristic
+Lorentzian peak that reperesents the \SI{14.4}{\kilo\electronvolt} resonance of the 
+excited $^{57}$Fe$^{*}$ state. The exact fitfunction as well as fit results are given
+in the below \autoref{eq:ecal-fit}
 
 \begin{equation}
 \label{eq:ecal-fit}
@@ -43,8 +44,9 @@ f(\mathcal{C}) = \frac{A}{(\mathcal{C}^2-\omega_0^2)^2 + \gamma^2\omega_0^2}
 \begin{figure}
 	\centering
 	\includegraphics[width=1.0\textwidth]{./fig/calibration.png}
-	\caption{The error on the measured counts is assumed to be Poissonian.}
+	\caption{The error on the measured counts is assumed to be Poissonian.
+	Because the amplitude $A$ does not hold physical information other than the 
+	flux of the $\gamma$-source, uncertainties and correlations in $A$ are
+	neglected in the below error propagation.}
 	\label{fig:ecal}
 \end{figure}
-
---

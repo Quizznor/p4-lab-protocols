@@ -1,5 +1,9 @@
 #!/usr/bin/env py
 
+# Don't create a pycache directory from importing auxiliary files
+import sys
+sys.dont_write_bytecode = True
+
 import matplotlib.pyplot as plt
 from scipy import optimize
 import numpy as np
