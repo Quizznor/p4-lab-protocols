@@ -8,6 +8,10 @@ import matplotlib.pyplot as plt
 from calibration import C_to_E
 import numpy as np
 
+# returns the velocity of the gamma source corresponding to a specific channel in mm/s
+def C_to_v(C):
+    return (C - 512/2)/max(C-512/2) * 10 # mm/s
+
 # Create <res> bins from a given dataset. Bins are filled with either the mean value
 # of data values or return the sum of data values if an array of errors is given.
 def create_bins(x,x_err=None,res=128):
@@ -33,7 +37,7 @@ def create_bins(x,x_err=None,res=128):
 
 # The shape fitted to the absorption peaks
 def inv_bw(x,O,A,G,w0):
-    return O - A * G/( (x-w0)**2 + (0.5*G)**2 )
+    return O - A/( (x-w0)**2 + (0.5*G)**2 )
 
 # Fit several inv_breit_wigner to a data set. <cuts> specifies
 # the indices at which the datasets will be split for analysis.
@@ -46,11 +50,14 @@ def perform_fits(x_data,y_data,y_err,cuts,ch1):
 
         # estimating the initial guess and fit boundaries
         O_i = np.mean([y[0],y[-1]])
-        A_i, G_i = 2e3, 1000
+        FWHM = O_i - 0.5*(O_i-min(y))
+        left, right = x[np.argmin(y):], x[:np.argmin(y)]
+        G_i = left[np.argmin(np.abs(FWHM-left))] - right[np.argmin(np.abs(FWHM-right))]
         w_i = x[np.argmin(y)]
+        A_i = inv_bw(w_i,O_i,1,G_i,w_i)/min(y)
 
         initial_guess = np.array([O_i,A_i,G_i,w_i])
-        lower, higher = [O_i-1e3,0,0,w_i-4], [O_i+1e3,3e3,5000,w_i+4]
+        lower, higher = [0,0,0,w_i-0.5], [10*O_i,120,10,w_i+0.5]
         popt, pcov = curve_fit(inv_bw,x,y,initial_guess,err,bounds=[lower,higher],maxfev=int(1e5))
         fit_results.append([popt, pcov])
 
@@ -69,18 +76,21 @@ def draw_fits(x_data,fit_results,cuts,ch1):
         model = inv_bw(X,O,A,G,w)
 
         # calculate 1-sigma errorband around fit
-        pcov = np.delete(np.delete(pcov,1,1),1,0) # get rid of errors in A
+        G_err = np.sqrt(np.diag(pcov)[2])
         denum = ( (X - w)**2 + 0.25*G**2 )
-        dw = -2*(X-w)/denum**2
-        dG = -0.5*G/denum**2
-
+        dA = np.zeros_like(denum) # -0.5*G/denum # in order to get rid of errors in A tat blow everything up
+        dG = 0.25*G/denum**2 - 0.5/denum
+        dw = -(X-w)*G/denum**2
         err = np.zeros_like(X)
+
         for i in range(len(X)):
-            grad = np.array([1,dG[i],dw[i]])
+            grad = np.array([1,dA[i],dG[i],dw[i]])
             err[i] = np.sqrt( grad.T @ pcov @ grad )
 
         plt.plot(X,model,lw=lw,ls=ls,c=c)
-        plt.fill_between(X,model+err,model-err,alpha=0.15,color=c)
+
+        if G_err < 120:
+            plt.fill_between(X,model+err,model-err,alpha=0.15,color=c)
 
 # Useful to see where the datasets are split
 def draw_cuts(x_data,cuts):
@@ -99,6 +109,6 @@ def print_results(fit_results, full=False):
         print(f"Peak {i+1}: FWHM = {G:.6f} +- {G_err:.6f}")
 
         if full:
-            print(f"Peak {i+1}: A = {A:.1f} +- {A_err:.1f}")
-            print(f"Peak {i+1}: O = {O:.1f} +- {O_err:.1f}")
-            print(f"Peak {i+1}: w_0 = {w:.1f} +- {w_err:.2f}\n")
+            print(f"Peak {i+1}: A = {A:.4f} +- {A_err:.4f}")
+            print(f"Peak {i+1}: O = {O:.4f} +- {O_err:.4f}")
+            print(f"Peak {i+1}: w_0 = {w:.4f} +- {w_err:.4f}\n")
