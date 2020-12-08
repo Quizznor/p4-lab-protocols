@@ -115,30 +115,44 @@ Ia = 1.5 # angeregter zst
 
 B1 = (Ig*E0* (-vl[4]-vl[3]) ) / (mug*c)
 B2 = (Ig*E0* (-vr[4]-vr[3]) ) / (mug*c)
-#print(B1,B2)
 
-B1stat = E0*Ig /(mug*c)*np.sqrt(vler[4]**2+vler[3]**2)
+
+B1stat = E0*Ig /(mug*c)*np.sqrt(vler[4]**2+vler[3]**2) 
 B2stat = E0*Ig /(mug*c)*np.sqrt(vrer[4]**2+vrer[3]**2)
 
 B1sys = np.sqrt(E0er**2 * ((vler[4]+vler[3])*Ig/(mug*c))**2  +  muger**2 * ((vler[4]+vler[3])*E0*Ig/(mug**2*c))**2)
 B2sys = np.sqrt(E0er**2 * ((vrer[4]+vrer[3])*Ig/(mug*c))**2  +  muger**2 * ((vrer[4]+vrer[3])*E0*Ig/(mug**2*c))**2)
 print("Magnetfeld in T")
-print(B1,"+-",B1sys,"+-",B1stat)
-print(B2,"+-",B2sys,"+-",B2stat)
-
-
-
+print(B1,"+-",B1sys+B1stat)
+print(B2,"+-",B2sys+B2stat)
+B = (B1+B2)/2
+B1er = B1sys+B1stat
+B2er = B2sys+B2stat
+Ber = 0.5 *np.sqrt(B1er**2+B2er**2) + np.std(np.array([B1]+[B2]))/np.sqrt(2)
+print(B,"+-",Ber)
 
 
 mua1 = ((vl[5]-vl[4])*Ia*E0)  /  (B1*c)
 mua2 = ((vr[5]-vr[4])*Ia*E0)  /  (B2*c)
-#print(mua1,mua2)
 
-mua1stat = np.sqrt( vler[5]**2 * (Ia*E0/B1/c)**2 + vler[4]**2 *(Ia*E0/B1/c)**2 + B1stat**2 * ((vl[5]-vl[4])*Ia*E0/B1**2/c)**2)
-mua2stat = np.sqrt( vrer[5]**2 * (Ia*E0/B2/c)**2 + vrer[4]**2 *(Ia*E0/B2/c)**2 + B2stat**2 * ((vr[5]-vr[4])*Ia*E0/B2**2/c)**2)
 
-mua1sys = np.sqrt( E0er**2 * ((vl[5]-vl[4])*Ia/B1/c)**2 + B1sys**2 * ((vl[5]-vl[4])*Ia*E0/B1**2/c)**2)
-mua2sys = np.sqrt( E0er**2 * ((vr[5]-vr[4])*Ia/B2/c)**2 + B2sys**2 * ((vr[5]-vr[4])*Ia*E0/B2**2/c)**2)
+mua1stat = np.sqrt( vler[5]**2 * (Ia*E0/B1/c)**2 + vler[4]**2 *(Ia*E0/B1/c)**2 + B1er**2 * ((vl[5]-vl[4])*Ia*E0/B1**2/c)**2)
+mua2stat = np.sqrt( vrer[5]**2 * (Ia*E0/B2/c)**2 + vrer[4]**2 *(Ia*E0/B2/c)**2 + B2er**2 * ((vr[5]-vr[4])*Ia*E0/B2**2/c)**2)
+
+mua1sys = np.sqrt( E0er**2 * ((vl[5]-vl[4])*Ia/B1/c)**2 )
+mua2sys = np.sqrt( E0er**2 * ((vr[5]-vr[4])*Ia/B2/c)**2 )
+
+mua1er = mua1sys+mua1stat
+mua2er = mua2sys+mua2stat
+mua = (mua1+mua2)/2
+muaer = 0.5 *np.sqrt(mua1er**2+mua2er**2) + np.std(np.array([mua1]+[mua2]))/np.sqrt(2)
+
 print("Magnetisches Moment in eV/T")
-print(mua1,"+-",mua1sys,"+-",mua1stat)
-print(mua2,"+-",mua2sys,"+-",mua2stat)
+print(mua1,"+-",mua1sys+mua1stat)
+print(mua2,"+-",mua2sys+mua2stat)
+print(mua,"+-",muaer)
+
+
+
+
+
