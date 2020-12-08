@@ -88,7 +88,7 @@ def draw_fits(x_data,fit_results,cuts,ch1,override=None):
             err[i] = np.sqrt( grad.T @ pcov @ grad )
 
         plt.plot(X,model,lw=lw,ls=ls,c=c)
-        xy = (w-1.2,0.99*min(model)) if override is None else override
+        xy = (w-1,0.995*min(model)) if override is None else override[j]
         ch1 and plt.annotate(f"#{j+1}",xy)
 
         if G_err < 120:
