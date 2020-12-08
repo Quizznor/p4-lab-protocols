@@ -42,7 +42,7 @@ fits_d2 = perform_fits(v2_binned,d2_binned,d2_err_binned,d2_cuts,ch1=False)
 draw_fits(v1_binned,fits_d1,d1_cuts,ch1=True,override=[(-1.5,4600),(0.5,4800)])
 draw_fits(v2_binned,fits_d2,d2_cuts,ch1=False)
 
-print_results(fits_d1,fits_d2,table=False)
+print_results(fits_d1,fits_d2,table=True)
 
 plt.xlabel(r"$\gamma$-source velocity ($\frac{\mathrm{mm}}{\mathrm{s}}$)",labelpad=20)
 plt.ylabel("Binned count",labelpad=20)
