@@ -13,13 +13,13 @@ iron absorber. Other materials are analysed in a similar fashion.
 The iron absorber is placed in the beam path. The transmitted photons are counted for
 roughly \SI{20}{\minute}. In this measuring mode, the MCS channel number corresponds
 to a velocity $v$ at which the $\gamma$-source is moving relative to the iron target.
-The 1024 channels available for readout are split into two 512-channel intervals (in the following adressed as Ch1 and Ch2) that differ in the acceleration of the source.
-As lined out in the lab manual \autoref{Sch17} it is assumed that the maximum 
-velocity $v_\text{max}=\SI{\pm10}{\milli\meter\per\second}$ corresponds to the edges 
-of the channel intervals (i.e. Channel \#0 and \#1023 for positive velocity, channel 
-\#511, and \#512 for negative velocity). Using this information, a relation between 
-channel number $\mathcal{C}$ and $\gamma$-source velocity can be constructed as 
-follows:
+The 1024 channels available for readout are split into two 512-channel intervals (in 
+the following adressed as Ch1 and Ch2) that differ in the acceleration of the source.It is assumed that the measurements of Ch1 and Ch2 respectively are uncorrelated.
+As lined out in the lab manual \cite{Sch17} it is assumed that the maximum velocity 
+$v_\text{max}=\SI{\pm10}{\milli\meter\per\second}$ corresponds to the edges of the 
+channel intervals (i.e. Channel \#0 and \#1023 for positive velocity, channel \#511, 
+and \#512 for negative velocity). Using this information, a relation between channel 
+number $\mathcal{C}$ and $\gamma$-source velocity can be constructed as follows:
 
 \begin{equation}
 \label{eq:channel-to-velocity}
@@ -37,24 +37,39 @@ modelled by a slightly modified Breit-Wigner shape presented in \autoref{eq:fitf
 
 \begin{equation}
 \label{eq:fitfunc}
-N(E) = \Upphi_0 - \frac{A}{(E-E')^2 - (\frac{1}{2}\,\Gamma)^2},
+N(v) = \Upphi_0 - \frac{A}{(v-v_0)^2 - (\frac{1}{2}\,\Gamma)^2},
 \end{equation}
 
 where $\Upphi_0$ is the integrated $\gamma$-flux (i.e. number of photons with energy 
-$E\approx\SI{14.4}{\kilo\electronvolt}$). The normalisation factor $A$, $E'$ the 
-transition energy and $\Gamma$ the full-width-at-half-maximum (FWHM) value of the 
+$E\approx\SI{14.4}{\kilo\electronvolt}$). The normalisation factor $A$, $v_0$ the 
+velocity of the $\gamma$-source at which the photons are shifted by the transition 
+energy $E'$ and $\Gamma$ the full-width-at-half-maximum (FWHM) value of the 
 absorption peak. Technically, using this parametrisation of the Breit-Wigner curve, 
 $\Gamma$ should also appear in the numerator. To ensure a more stable fit result, 
 it has however been absorbed in $A$.
 
 Fitting \autoref{eq:fitfunc} to measurement data, six absorption peaks can be 
-identified (see \autoref{fig:iron}). The individual parameters optimised to model
-the observed spectrum are listed in \autoref{tab:iron}
+identified (see \autoref{fig:iron}) depending on the velocity of the $\gamma$-source.
+The individual parameters optimised to model the observed spectrum are listed in 
+\autoref{tab:iron}. It is important to note that absorption peak \#4 and \#5 are not 
+properly fitted for data from Channel 2. The information gathered from these peaks
+will be ignored in the following analysis. For every other absorption peak the
+corresponding fit parameters $P$ will be combined to a mean value $\bar{P}$.
+
+\begin{align*}
+	\bar{P} &= \;\;P_\text{Ch1} + P_\text{Ch2} \\[0.5cm]
+	\Delta\bar{P} &= \sqrt{\Delta P_\text{Ch1}^2 + \Delta P_\text{Ch2}^2  } 
+\end{align*}
 
 \begin{figure}
 	\label{fig:iron}
 	\includegraphics[width=1.0\textwidth]{./fig/Iron.png}
-	\caption{Mössbauer spectrum of iron}{CAPTION}
+	\caption{Mössbauer spectrum of iron}{Six absorption peaks can be seen in the
+	Mössbauer spectrum of ironSix absorption peaks can be seen in the
+	Mössbauer spectrum of iron. They are labelled \#1 to \#6. The two measurement
+	channels are colour-coded respectively.}
 \end{figure}
+
+\input{./tab/Iron}
 
 \todo{Add isometric shift discussion}

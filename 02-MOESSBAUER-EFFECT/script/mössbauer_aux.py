@@ -64,12 +64,12 @@ def perform_fits(x_data,y_data,y_err,cuts,ch1):
     return fit_results
 
 # Visualize the fits obtained in perform_fits
-def draw_fits(x_data,fit_results,cuts,ch1):
+def draw_fits(x_data,fit_results,cuts,ch1,override=None):
     c = "C0" if ch1 else "C1"
     ls = "--" if ch1 else ":"
     lw = 0.5 if ch1 else 1
 
-    for i in range(len(cuts[:-1])):
+    for j,i in enumerate(range(len(cuts[:-1]))):
         low, high = cuts[i], cuts[i+1]
         X = np.linspace(x_data[low],x_data[high],10000)
         (O,A,G,w), pcov = fit_results[i][0], fit_results[i][1]
@@ -88,6 +88,8 @@ def draw_fits(x_data,fit_results,cuts,ch1):
             err[i] = np.sqrt( grad.T @ pcov @ grad )
 
         plt.plot(X,model,lw=lw,ls=ls,c=c)
+        xy = (w-1.2,0.99*min(model)) if override is None else override
+        ch1 and plt.annotate(f"#{j+1}",xy)
 
         if G_err < 120:
             plt.fill_between(X,model+err,model-err,alpha=0.15,color=c)
@@ -97,18 +99,28 @@ def draw_cuts(x_data,cuts):
     for cut in cuts:
         plt.axvline(x_data[cut],c="gray",ls="--",zorder=1)
 
-# Print out results of optimization
-def print_results(fit_results, full=False):
+# Print out results of optimization in TeX table format (if desired)
+def print_results(fit_results1,fit_results2, table=False):
+    for i in range(len(fit_results1)):
+        O1, O1_err = fit_results1[i][0][0], np.sqrt( np.diag(fit_results1[i][1])[0] )
+        A1, A1_err = fit_results1[i][0][1], np.sqrt( np.diag(fit_results1[i][1])[1] )
+        G1, G1_err = fit_results1[i][0][2], np.sqrt( np.diag(fit_results1[i][1])[2] )
+        w1, w1_err = fit_results1[i][0][3], np.sqrt( np.diag(fit_results1[i][1])[3] )
 
-    for i in range(len(fit_results)):
-        O, O_err = fit_results[i][0][0], np.sqrt( np.diag(fit_results[i][1])[0] )
-        A, A_err = fit_results[i][0][1], np.sqrt( np.diag(fit_results[i][1])[1] )
-        G, G_err = fit_results[i][0][2], np.sqrt( np.diag(fit_results[i][1])[2] )
-        w, w_err = fit_results[i][0][3], np.sqrt( np.diag(fit_results[i][1])[3] )
+        O2, O2_err = fit_results2[i][0][0], np.sqrt( np.diag(fit_results2[i][1])[0] )
+        A2, A2_err = fit_results2[i][0][1], np.sqrt( np.diag(fit_results2[i][1])[1] )
+        G2, G2_err = fit_results2[i][0][2], np.sqrt( np.diag(fit_results2[i][1])[2] )
+        w2, w2_err = fit_results2[i][0][3], np.sqrt( np.diag(fit_results2[i][1])[3] )
 
-        print(f"Peak {i+1}: FWHM = {G:.6f} +- {G_err:.6f}")
+        if not table:
+            print("Results:    Ch1         / Ch2")
+            print(f"Peak {i+1}: O = {O1:.0f} +- {O1_err:.0f} / {O2:.0f} +- {O2_err:.0f}")
+            print(f"Peak {i+1}: A = {A1:.1f} +- {A1_err:.1f} / {A2:.2f} +- {A2_err:.1f}")
+            print(f"Peak {i+1}: G = {G1:.4f} +- {G1_err:.4f} / {G2:.4f} +- {G2_err:.4f}")
+            print(f"Peak {i+1}: v = {w1:.4f} +- {w1_err:.4f} / {w2:.4f} +- {w2_err:.4f}\n")
 
-        if full:
-            print(f"Peak {i+1}: A = {A:.4f} +- {A_err:.4f}")
-            print(f"Peak {i+1}: O = {O:.4f} +- {O_err:.4f}")
-            print(f"Peak {i+1}: w_0 = {w:.4f} +- {w_err:.4f}\n")
+        G2_err = "$\inf$" if G2_err >1e3 else f"{G2_err:.3f}"
+
+        table and print(f"\multirow{{2}}{{*}}{{\#%i}} & ${O1:.0f}\pm{O1_err:.0f}$ & ${A1:.0f}\pm{A1_err:.1f}$ & ${w1:.2f}\pm{w1_err:.2f}$ \
+        %s & ${G1:.3f}\pm{G1_err:.3f}$ & Ch1 \\\\\n%s & ${O2:.0f}\pm{O2_err:.0f}$ & ${A2:.0f}\pm{A2_err:.1f}$ & ${w2:.2f}\pm{w2_err:.2f}$ \
+        %s & ${G2:.3f}\pm{G2_err:s}$ & Ch2 \\\\\n%s\hline"%(i+1,"\b"*9,"\t"*3+"\b"*1,"\b"*9,"\t"*3+"\b"))

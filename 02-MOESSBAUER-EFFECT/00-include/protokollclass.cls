@@ -157,7 +157,7 @@
 % Custom packages that arent part of the template
 
 \usepackage{pdfpages}
-
+\usepackage{multirow}
 
 
 
