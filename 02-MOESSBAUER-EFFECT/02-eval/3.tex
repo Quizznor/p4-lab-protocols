@@ -56,6 +56,8 @@ properly fitted for data from Channel 2. The information gathered from these pea
 will be ignored in the following analysis. For every other absorption peak the
 corresponding fit parameters $P$ will be combined to a mean value $\bar{P}$.
 
+
+
 \begin{align*}
 	\bar{P} &= \;\;P_\text{Ch1} + P_\text{Ch2} \\[0.5cm]
 	\Delta\bar{P} &= \sqrt{\Delta P_\text{Ch1}^2 + \Delta P_\text{Ch2}^2  } 
@@ -72,4 +74,13 @@ corresponding fit parameters $P$ will be combined to a mean value $\bar{P}$.
 
 \input{./tab/Iron}
 
-\todo{Add isometric shift discussion}
+Due to the use of different emitter and absorber materials, a \textbf{isomer shift} occurs. This is caused by the different charge radii and electron distribution of the states involved in the transition.
+ In the Mößbauer spectrum this results in a fixed shift of all absorption peaks around  the center (v=0), which overlaps with other phenomena. The isomer shift can be calculated by determining the center of gravity of pairwise connected lines. \\
+At the $^{57}$Co-Rh source with natural iron as absorber an isomer shift of
+
+\begin{equation}
+\label{eq:isofe}
+\Delta E = \SI{1 \pm 2}{\cdot 10^{-9} eV}
+\end{equation}
+
+occurs.
