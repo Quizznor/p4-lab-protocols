@@ -42,7 +42,18 @@ fits_d2 = perform_fits(v2_binned,d2_binned,d2_err_binned,d2_cuts,ch1=False)
 draw_fits(v1_binned,fits_d1,d1_cuts,ch1=True)
 draw_fits(v2_binned,fits_d2,d2_cuts,ch1=False)
 
-print_results(fits_d1,fits_d2,table=True)
+print_results(fits_d1,fits_d2,table=False)
+
+# Lifetime of the 14.4 keV metastable Iron state
+hbar = 6.582e-16
+to_E = lambda x: x * 0.2e-8
+G1, G1_err =  to_E(fits_d1[0][0][2]), to_E(np.sqrt( np.diag(fits_d1[0][1])[2] ))
+G2, G2_err =  to_E(fits_d2[0][0][2]), to_E(np.sqrt( np.diag(fits_d2[0][1])[2] ))
+
+G, G_err = 0.5 * (G1 + G2), np.sqrt(G1_err**2 + G2_err**2)
+tau, tau_err = hbar/G, G_err * hbar/G**2
+
+print(f"Lifetime of the 14.4 keV metastable Iron-57: tau = {tau*1e8:.2f} +- {tau_err*1e7:.2f} ns")
 
 plt.xlabel(r"$\gamma$-source velocity ($\frac{\mathrm{mm}}{\mathrm{s}}$)",labelpad=20)
 plt.ylabel("Binned count",labelpad=20)
