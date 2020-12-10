@@ -101,6 +101,7 @@ def draw_cuts(x_data,cuts):
 
 # Print out results of optimization in TeX table format (if desired)
 def print_results(fit_results1,fit_results2, table=False):
+    print()
     for i in range(len(fit_results1)):
         O1, O1_err = fit_results1[i][0][0], np.sqrt( np.diag(fit_results1[i][1])[0] )
         A1, A1_err = fit_results1[i][0][1], np.sqrt( np.diag(fit_results1[i][1])[1] )
