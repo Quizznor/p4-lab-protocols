@@ -50,10 +50,11 @@ to_E = lambda x: x * 0.2e-8
 G1, G1_err =  to_E(fits_d1[0][0][2]), to_E(np.sqrt( np.diag(fits_d1[0][1])[2] ))
 G2, G2_err =  to_E(fits_d2[0][0][2]), to_E(np.sqrt( np.diag(fits_d2[0][1])[2] ))
 
+print(f"G1 = {G1}+-{G1_err} eV, G2 = {G2}+-{G2_err} eV")
 G, G_err = 0.5 * (G1 + G2), np.sqrt(G1_err**2 + G2_err**2)
 tau, tau_err = hbar/G, G_err * hbar/G**2
 
-print(f"Lifetime of the 14.4 keV metastable Iron-57: tau = {tau*1e8:.2f} +- {tau_err*1e7:.2f} ns")
+print(f"Lifetime of the 14.4 keV metastable Iron-57: tau = {tau*1e9:.2f} +- {tau_err*1e7:.2f} ns")
 
 plt.xlabel(r"$\gamma$-source velocity ($\frac{\mathrm{mm}}{\mathrm{s}}$)",labelpad=20)
 plt.ylabel("Binned count",labelpad=20)

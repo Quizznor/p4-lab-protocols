@@ -4,7 +4,7 @@
 \label{sec:mössbauer-spectrum}
 
 In the following section the Mössbauer spectrum of various materials is measured. The
-process of how data is collected and analysed is presented using the example of an 
+process of how data is collected and analysed is presented using the example of an
 iron absorber. Other materials are analysed in a similar fashion.
 
 \subsection{Iron}
@@ -13,12 +13,12 @@ iron absorber. Other materials are analysed in a similar fashion.
 The iron absorber is placed in the beam path. The transmitted photons are counted for
 roughly \SI{20}{\minute}. In this measuring mode, the MCS channel number corresponds
 to a velocity $v$ at which the $\gamma$-source is moving relative to the iron target.
-The 1024 channels available for readout are split into two 512-channel intervals (in 
+The 1024 channels available for readout are split into two 512-channel intervals (in
 the following adressed as Ch1 and Ch2) that differ in the acceleration of the source.It is assumed that the measurements of Ch1 and Ch2 respectively are uncorrelated.
-As lined out in the lab manual \cite{Sch17} it is assumed that the maximum velocity 
-$v_\text{max}=\SI{\pm10}{\milli\meter\per\second}$ corresponds to the edges of the 
-channel intervals (i.e. Channel \#0 and \#1023 for positive velocity, channel \#511, 
-and \#512 for negative velocity). Using this information, a relation between channel 
+As lined out in the lab manual \cite{Sch17} it is assumed that the maximum velocity
+$v_\text{max}=\SI{\pm10}{\milli\meter\per\second}$ corresponds to the edges of the
+channel intervals (i.e. Channel \#0 and \#1023 for positive velocity, channel \#511,
+and \#512 for negative velocity). Using this information, a relation between channel
 number $\mathcal{C}$ and $\gamma$-source velocity can be constructed as follows:
 
 \begin{equation}
@@ -26,13 +26,13 @@ number $\mathcal{C}$ and $\gamma$-source velocity can be constructed as follows:
 v(\mathcal{C}) = \SI{10}{\milli\meter\per\second}\cdot\left(\frac{\mathcal{C}-256}{256}\right).
 \end{equation}
 
-Because of this relative velocity the photons that are emitted at an energy of 
+Because of this relative velocity the photons that are emitted at an energy of
 \SI{14.4}{\kilo\electronvolt} are Doppler shifted to slightly lower/higher energies.
 If now a nuclear transition from state $|i\rangle$ to state $|f\rangle$ exists for an
-iron atom in the crytal lattice where $E_f-E_i=E'$, there is a nonzero probability 
-that the atom absorbs the photon and transitions to the higher energy state. 
-Consequently, a dip in the photon spectrum at that specific energy (and by extension 
-a specific velocity) can be observed. The resonance around this energy $E'$ can be 
+iron atom in the crytal lattice where $E_f-E_i=E'$, there is a nonzero probability
+that the atom absorbs the photon and transitions to the higher energy state.
+Consequently, a dip in the photon spectrum at that specific energy (and by extension
+a specific velocity) can be observed. The resonance around this energy $E'$ can be
 modelled by a slightly modified Breit-Wigner shape presented in \autoref{eq:fitfunc}.
 
 \begin{equation}
@@ -40,18 +40,18 @@ modelled by a slightly modified Breit-Wigner shape presented in \autoref{eq:fitf
 N(v) = \Upphi_0 - \frac{A}{(v-v_0)^2 - (\frac{1}{2}\,\Gamma)^2},
 \end{equation}
 
-where $\Upphi_0$ is the integrated $\gamma$-flux (i.e. number of photons with energy 
-$E\approx\SI{14.4}{\kilo\electronvolt}$). The normalisation factor $A$, $v_0$ the 
-velocity of the $\gamma$-source at which the photons are shifted by the transition 
-energy $E'$ and $\Gamma$ the full-width-at-half-maximum (FWHM) value of the 
-absorption peak. Technically, using this parametrisation of the Breit-Wigner curve, 
-$\Gamma$ should also appear in the numerator. To ensure a more stable fit result, 
+where $\Upphi_0$ is the integrated $\gamma$-flux (i.e. number of photons with energy
+$E\approx\SI{14.4}{\kilo\electronvolt}$). The normalisation factor $A$, $v_0$ the
+velocity of the $\gamma$-source at which the photons are shifted by the transition
+energy $E'$ and $\Gamma$ the full-width-at-half-maximum (FWHM) value of the
+absorption peak. Technically, using this parametrisation of the Breit-Wigner curve,
+$\Gamma$ should also appear in the numerator. To ensure a more stable fit result,
 it has however been absorbed in $A$.
 
-Fitting \autoref{eq:fitfunc} to measurement data, six absorption peaks can be 
+Fitting \autoref{eq:fitfunc} to measurement data, six absorption peaks can be
 identified (see \autoref{fig:iron}) depending on the velocity of the $\gamma$-source.
-The individual parameters optimised to model the observed spectrum are listed in 
-\autoref{tab:iron}. It is important to note that absorption peak \#4 and \#5 are not 
+The individual parameters optimised to model the observed spectrum are listed in
+\autoref{tab:iron}. It is important to note that absorption peak \#4 and \#5 are not
 properly fitted for data from Channel 2. The information gathered from these peaks
 will be ignored in the following analysis. For every other absorption peak the
 corresponding fit parameters $P$ will be combined to a mean value $\bar{P}$.
@@ -60,7 +60,7 @@ corresponding fit parameters $P$ will be combined to a mean value $\bar{P}$.
 
 \begin{align*}
 	\bar{P} &= \;\;P_\text{Ch1} + P_\text{Ch2} \\[0.5cm]
-	\Delta\bar{P} &= \sqrt{\Delta P_\text{Ch1}^2 + \Delta P_\text{Ch2}^2  } 
+	\Delta\bar{P} &= \sqrt{\Delta P_\text{Ch1}^2 + \Delta P_\text{Ch2}^2  }
 \end{align*}
 
 \begin{figure}
@@ -85,7 +85,7 @@ At the $^{57}$Co-Rh source with natural iron as absorber an isomer shift of
 
 occurs.
 
-Another effect is the \textbf{hyper fine splitting} of $^{57}$Fe. This is caused by the movement of the shell electrons and a resulting magnetic field B at the location of the atomic nucleus. 
+Another effect is the \textbf{hyper fine splitting} of $^{57}$Fe. This is caused by the movement of the shell electrons and a resulting magnetic field B at the location of the atomic nucleus.
 Due to the Zeeman effect the degenerated state of the nucleus splits into $2I + $2 levels. I is the nuclear spin and there are $2I+1$ possible values of the magnetic quantum number m. The energy distances are given by
 
 \begin{equation}
@@ -106,7 +106,7 @@ For dipole transitions, however, the selection rule $\Delta m = m_a -m_g = 0\pm1
     \mu_g = \SI{0.0903\pm 0.0007}{\mu_k}
 \end{equation}
 
-where $\mu_k=\frac{e \hbar}{2m_p} $ corresponds to the nuclear magneton. Thus, the internal magnetic field and the magnetic moment of the excited state, $\mu_a$, can be determined. 
+where $\mu_k=\frac{e \hbar}{2m_p} $ corresponds to the nuclear magneton. Thus, the internal magnetic field and the magnetic moment of the excited state, $\mu_a$, can be determined.
 
 The complete derivation of the calculation is in the blue book and is therefore only outlined here. The six possible transitions can be described by the newly defined sizes A, G and $I_0$. These are given by:
 \begin{equation}
@@ -139,9 +139,9 @@ The velocities $v_1 >v_2 >v_3$ correspond to the positive absorption peaks of th
          $v_1-2v_2+v_3=0$&-0.10&0.01\\
          $v_1-v_2-2v_3=0$&0.32&0.44\\
          $-v_1+v_2+2v_3=0$&-0.32&-0.44\\
-         
-         
-         
+
+
+
     \bottomrule
     \end{tabular}
     \label{tab:fe1}
@@ -161,8 +161,8 @@ where the magnetic field B is used in the first equation. Thus the inner magneti
 \begin{table}
     \centering
     \caption{Inner magnetic field and magnetic moment of the excited $^{57}$Fe state.}
-    
-    \begin{tabular}{c c c c} 
+
+    \begin{tabular}{c c c c}
      \toprule
      &Ch1&Ch2&Mean \\
      \hline
@@ -170,27 +170,8 @@ where the magnetic field B is used in the first equation. Thus the inner magneti
      Magnetic moment& $-\SI{4.56\pm 0.15}{\cdot 10^{-9}eV}$  &$-\SI{4.91\pm 0.16}{\cdot 10^{-9}eV}$   &$-\SI{4.73\pm 0.23}{\cdot 10^{-9}eV}$\\
      \bottomrule
     \end{tabular}
-    
+
     \label{tab:fe2}
 \end{table}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+\todo{add hyperfine splitting results}
