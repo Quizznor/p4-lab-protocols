@@ -99,6 +99,22 @@ def draw_cuts(x_data,cuts):
     for cut in cuts:
         plt.axvline(x_data[cut],c="gray",ls="--",zorder=1)
 
+# Calculate the electric Field gradient d²V/d²z from given quadrupole moment
+def calc_Egrad(v32,v12,v32_err,v12_err):
+    c = 299792458                   # m/s
+    e = 1.602176634e-19             # in C
+    E0, E0_err = 14.4e3, 50         # in eV
+    E0 *= 1.6e-19                   # in J
+    E0_err *= 1.6e-19               # in J
+    Q, Q_err = 0.21e-28,0.01e-28    # in m²
+
+    denum = e*Q*c
+    dVdz = (v32-v12) * 2*E0/denum                                                 # V/m²
+    dVdz_err = np.sqrt( (2*E0/denum * v32_err)**2 + (-2*E0/denum * v12_err)**2 +  # V/m²
+                ((v32-v12)*2/denum * E0_err)**2 + (-(v32-v12)*2*E0*e*c/denum**2 * Q_err)**2 )
+
+    return dVdz, dVdz_err
+
 # Print out results of optimization in TeX table format (if desired)
 def print_results(fit_results1,fit_results2, table=False):
     print()

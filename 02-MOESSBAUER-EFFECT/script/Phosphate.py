@@ -6,6 +6,7 @@ sys.dont_write_bytecode = True
 from mössbauer_aux import print_results
 from mössbauer_aux import perform_fits
 from mössbauer_aux import create_bins
+from mössbauer_aux import calc_Egrad
 from mössbauer_aux import draw_cuts
 from mössbauer_aux import draw_fits
 from mössbauer_aux import inv_bw
@@ -42,12 +43,18 @@ fits_d2 = perform_fits(v2_binned,d2_binned,d2_err_binned,d2_cuts,ch1=False)
 draw_fits(v1_binned,fits_d1,d1_cuts,ch1=True,override=[(-1.5,4600),(0.5,4800)])
 draw_fits(v2_binned,fits_d2,d2_cuts,ch1=False)
 
-print_results(fits_d1,fits_d2,table=True)
+print_results(fits_d1,fits_d2,table=False)
+
+v_12_Ch1, v_32_Ch1 = fits_d1[0][0][-1], fits_d1[1][0][-1]
+v_12_Ch2, v_32_Ch2 = fits_d2[0][0][-1], fits_d2[1][0][-1]
+v_32, v_12 = np.mean([v_32_Ch1,v_32_Ch2]), np.mean([v_12_Ch1,v_12_Ch2])
+v_32_err, v_12_err = np.std([v_32_Ch1,v_32_Ch2]), np.std([v_12_Ch1,v_12_Ch2])
+dVdz, dVdz_err = calc_Egrad(v_32,v_12,v_32_err,v_12_err)
+
+print(dVdz,dVdz_err)
 
 plt.xlabel(r"$\gamma$-source velocity ($\frac{\mathrm{mm}}{\mathrm{s}}$)",labelpad=20)
 plt.ylabel("Binned count",labelpad=20)
-# plt.ylim(8500,10800)
 plt.xlim(-10.1,10.1)
 plt.legend()
-# plt.savefig("../fig/Phospate.png",dpi=500)
-plt.show()
+# plt.show()
