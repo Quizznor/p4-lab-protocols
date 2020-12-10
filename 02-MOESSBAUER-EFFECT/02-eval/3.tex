@@ -80,7 +80,117 @@ At the $^{57}$Co-Rh source with natural iron as absorber an isomer shift of
 
 \begin{equation}
 \label{eq:isofe}
-\Delta E = \SI{1 \pm 2}{\cdot 10^{-9} eV}
+\Delta E = \SI{6.80 \pm 0.12}{\cdot 10^{-9} eV}
 \end{equation}
 
 occurs.
+
+Another effect is the \textbf{hyper fine splitting} of $^{57}$Fe. This is caused by the movement of the shell electrons and a resulting magnetic field B at the location of the atomic nucleus. 
+Due to the Zeeman effect the degenerated state of the nucleus splits into $2I + $2 levels. I is the nuclear spin and there are $2I+1$ possible values of the magnetic quantum number m. The energy distances are given by
+
+\begin{equation}
+\label{eq:hyp1}
+\Delta E_m = -\frac{m}{I} \mu B.
+\end{equation}
+
+It follows for energy of the $\gamma$-quanta with resonance absorption option considering the hyperfine splitting of excited (index a) and ground state (index g):
+
+\begin{equation}
+   E_{\gamma} = E_0 - \frac{m_a}{I_a}\mu_aB + \frac{m_g}{I_g}\mu_gB
+\end{equation}
+
+The excited state $I_a = \frac{3}{2}$ is split fourfold and the basic state $I_g =\frac{1}{2}$ is split twice.
+For dipole transitions, however, the selection rule $\Delta m = m_a -m_g = 0\pm1$ applies, so only six transitions are permitted. The magnetic moment of the ground state is already known with
+
+\begin{equation}
+    \mu_g = \SI{0.0903\pm 0.0007}{\mu_k}
+\end{equation}
+
+where $\mu_k=\frac{e \hbar}{2m_p} $ corresponds to the nuclear magneton. Thus, the internal magnetic field and the magnetic moment of the excited state, $\mu_a$, can be determined. 
+
+The complete derivation of the calculation is in the blue book and is therefore only outlined here. The six possible transitions can be described by the newly defined sizes A, G and $I_0$. These are given by:
+\begin{equation}
+    A = \frac{\mu_aBc}{I_aE_0} \qquad
+    G = \frac{\mu_gBc}{I_gE_0}
+\end{equation}
+where $I_0$ corresponds to the isomer shift already calculated. $E_0 =\SI{14.4\pm0.05}{\kilo eV}$ is the energy of the ground state and $c$ is the velocity of light. There are four cases to distinguish, depending on the relative size of the unknowns to each other. The case with the smallest deviation is chosen.
+
+\begin{align*}
+\text{(a)}& \quad v_1-2v_2-v_3=0 \\\
+\text{(b)}& \quad v_1-2v_2+v_3=0 \\\
+\text{(c)}& \quad v_1-v_2-2v_3=0 \\\
+\text{(d)}& \quad -v_1+v_2+2v_3=0 \\\
+\end{align*}
+
+The velocities $v_1 >v_2 >v_3$ correspond to the positive absorption peaks of the Mößbauer spectrum and are already corrected for the isomer shift.
+
+\begin{table}
+    \centering
+    \caption{Case distinction in the calculation of hyperfine structure splitting}
+    \begin{tabular}{c c c}
+    \toprule
+         &Ch1 in $\SI{}{10^{-3}\frac{m}{s}}$ &Ch2 in $\SI{}{10^{-3}\frac{m}{s}}$  \\
+         \hline
+         $v_1$&4.16 &4.11 \\
+         $v_2$&2.48&2.38 \\
+         $v_3$&0.69&0.65 \\
+         \hline
+         $v_1-2v_2-v_3=0$&-1.47&-1.29\\
+         $v_1-2v_2+v_3=0$&-0.10&0.01\\
+         $v_1-v_2-2v_3=0$&0.32&0.44\\
+         $-v_1+v_2+2v_3=0$&-0.32&-0.44\\
+         
+         
+         
+    \bottomrule
+    \end{tabular}
+    \label{tab:fe1}
+\end{table}
+
+The slightest deviation therefore occurred in case two (see $\autoref{tab:fe1}$). From this follows for the unknowns:
+\begin{equation*}
+    A = v_1-v_2 \qquad G = -v_2-v_3.
+\end{equation*}
+By transforming the equation follows:
+\begin{equation}
+    \mu_a =\frac{AI_aE_0}{Bc} = \frac{(v_1-v_2)I_aE_0}{Bc} \qquad B= \frac{GI_gE_0}{\mu_gc}=\frac{(-v_2-v_3)I_gE_0}{\mu_gc}
+\end{equation}
+where the magnetic field B is used in the first equation. Thus the inner magnetic field and the magnetic moment of the excited state are given by $\autoref{tab:fe2}$.
+\\
+
+\begin{table}
+    \centering
+    \caption{Inner magnetic field and magnetic moment of the excited $^{57}$Fe state.}
+    
+    \begin{tabular}{c c c c} 
+     \toprule
+     &Ch1&Ch2&Mean \\
+     \hline
+     Inner magnetic field &  $-\SI{26.71\pm 0.39}{T}$ &$-\SI{25.54\pm 0.45}{T}$   &$-\SI{26.12\pm 0.71}{T}$ \\
+     Magnetic moment& $-\SI{4.56\pm 0.15}{\cdot 10^{-9}eV}$  &$-\SI{4.91\pm 0.16}{\cdot 10^{-9}eV}$   &$-\SI{4.73\pm 0.23}{\cdot 10^{-9}eV}$\\
+     \bottomrule
+    \end{tabular}
+    
+    \label{tab:fe2}
+\end{table}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
