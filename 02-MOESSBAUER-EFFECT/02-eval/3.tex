@@ -89,7 +89,7 @@ Due to the Zeeman effect the degenerated state of the nucleus splits into $2I + 
 \Delta E_m = -\frac{m}{I} \mu B.
 \end{equation}
 
-It follows for energy of the $\gamma$-quanta with resonance absorption option considering the hyperfine splitting of excited (index a) and ground state (index g):
+It follows for the energy of the $\gamma$-quanta with resonance absorption, considering the hyperfine splitting of excited (index a) and ground state (index g):
 
 \begin{equation}
    E_{\gamma} = E_0 - \frac{m_a}{I_a}\mu_aB + \frac{m_g}{I_g}\mu_gB
@@ -108,6 +108,7 @@ The complete derivation of the calculation is in the blue book and is therefore 
 \begin{equation}
     A = \frac{\mu_aBc}{I_aE_0} \qquad
     G = \frac{\mu_gBc}{I_gE_0}
+\label{eq:unk1}
 \end{equation}
 where $I_0$ corresponds to the isomer shift already calculated. $E_0 =\SI{14.4\pm0.05}{\kilo eV}$ is the energy of the ground state and $c$ is the velocity of light. There are four cases to distinguish, depending on the relative size of the unknowns to each other. The case with the smallest deviation is chosen.
 
@@ -144,10 +145,11 @@ The velocities $v_1 >v_2 >v_3$ correspond to the positive absorption peaks of th
 \end{table}
 
 The slightest deviation therefore occurred in case two (see $\autoref{tab:fe1}$). From this follows for the unknowns:
-\begin{equation*}
+\begin{equation}
     A = v_1-v_2 \qquad G = -v_2-v_3.
-\end{equation*}
-By transforming the equation follows:
+\label{eq:unk2}
+\end{equation}
+By transforming the equations ($\autoref{eq:unk1}$ and $\autoref{eq:unk2}$) follows:
 \begin{equation}
     \mu_a =\frac{AI_aE_0}{Bc} = \frac{(v_1-v_2)I_aE_0}{Bc} \qquad B= \frac{GI_gE_0}{\mu_gc}=\frac{(-v_2-v_3)I_gE_0}{\mu_gc}
 \end{equation}
