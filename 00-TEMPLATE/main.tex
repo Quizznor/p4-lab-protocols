@@ -12,10 +12,6 @@
 % amsmath, amssymb, mathtools, bbm, upgreek, nicefrac,
 % siunitx, varioref, booktabs, graphicx, tikz, multicol
 
-
-
-
-
 %% ---------------------------------------------
 %% |    Informationen über dieses Protokoll    |
 %% ---------------------------------------------
@@ -46,10 +42,6 @@
 
 \newcommand{\protokollseiten}{2}           % Seitenlänge des Messprotokolls
 \newcommand{\MaxKapitel}{10}
-
-
-
-
 
 %% --------------------------------------
 %% |    Settings for Word Separation    |
@@ -86,10 +78,6 @@
 % english or ngerman (new german für neue deutsche Rechtschreibung statt german)
 \SelectLanguage{english}
 
-
-
-
-
 %% -----------------------
 %% |    Main Document    |
 %% -----------------------
@@ -110,8 +98,6 @@
     % Contents
     \MainMatter
 
-
-
     % Uncomment this line to include the measurement report
     % \pseudochapter[\protokollseiten]{Measurement report}
     % \includepdf[pages=-]{data/measurement_report.pdf}
@@ -128,11 +114,15 @@
     \chapter{Experiment \& Evaluation}
     \label{chap:experiment}
 
+    \input{02-eval/Setup}
+
     \foreach \c in {1,2,...,\MaxKapitel}{%
       \IfFileExists{02-eval/\c}{%
         \input{02-eval/\c}{}
       }%
     }%
+
+    \input{02-eval/Conclusion}
 
       % % appendix for more or less interesting calculations
     % \Appendix
@@ -140,8 +130,6 @@
     % % to make the appendix appear in ToC without number. \appendixname =
     % % Appendix or Anhang (depending on chosen language)
     % \input{./chap/appendix.tex} %\cleardoublepage
-
-
 
     % Bibliography
     \TheBibliography
