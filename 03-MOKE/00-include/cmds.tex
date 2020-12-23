@@ -6,11 +6,11 @@
                                                        % it's just an abbrev.
                                                        % for the long command
 
-\newcommand{\arr}[2]{\begin{array}{#1}#2\end{array}}   % to create arrays. very 
+\newcommand{\arr}[2]{\begin{array}{#1}#2\end{array}}   % to create arrays. very
                                                        % useful in math env
 
-\renewcommand{\d}{\ensuremath{\text{d}}}               % as the differential 
-                                                       % operator, e.g. 
+\renewcommand{\d}{\ensuremath{\text{d}}}               % as the differential
+                                                       % operator, e.g.
                                                        % \frac{\d x}{\d t}
 
 \newcommand{\NN}{\mathbb{N}}                           % or change it to
@@ -26,7 +26,7 @@
 \newcommand{\margtodo}                                 % used by \todo command
 {\marginpar{\textbf{\textcolor{kitcolor}{ToDo}}}{}}
 \newcommand{\todo}[1]
-{{\textbf{\textcolor{kitcolor}{[\margtodo{}#1]}}}{}}   % for todo-notes inside 
+{{\textbf{\textcolor{kitcolor}{[\margtodo{}#1]}}}{}}   % for todo-notes inside
                                                        % the document
 \newenvironment{deprecated}                            % for something that you
 {\begin{color}{gray}}{\end{color}}                     % want to use no more
@@ -35,17 +35,15 @@
                                                        % short and long descrip.
 
 \newcommand{\xfigure}[5]{\begin{figure}[#1]            % a quick command for
-\centering                                             % including graphics 
+\centering                                             % including graphics
 \includegraphics[scale=#2]{./fig/#3}                   % with all necessary vars
 \xcaption{#4}{#5}
-\label{fig:#3}
 \end{figure}}
 
 \newcommand{\xfigurerot}[5]{\begin{figure}[#1]        % same as above, only
 \centering                                            % image is rotated
 \includegraphics[angle=270,scale=#2]{./fig/#3}
 \xcaption{#4}{#5}
-\label{fig:#3}
 \end{figure}}
 
 \newcommand{\xtable}[4]{\begin{table}[#1]             % same for tables
@@ -53,7 +51,6 @@
 \xcaption{#3}{#4}
 \rowcolors{3}{gray!10}{white}
 \include{./tab/#2}
-\label{tab:#2}
 \end{table}}
 
 
