@@ -18,11 +18,13 @@ def prepare_data(data,bin_tails=False):
 plt.rcParams.update({'font.size': 20})
 plt.rc('axes', labelsize=26)
 
-fig, axes = plt.subplots(3,2, sharey=True,sharex=True)
-fig.subplots_adjust(hspace=0.3,wspace=0.05)
+fig, axes = plt.subplots(3,2,sharey="row",sharex="row")
+fig.subplots_adjust(hspace=0.65,wspace=0.05)
 axes = axes.ravel()
 
 for i,distance in enumerate([10,13,15,17,20,25]):
+
+    thickness = [0.4,0.5,0.7,0.9,1.4,2.0][i]
 
     data_x,data_y = prepare_data(np.loadtxt(f"../data/sample_A_{distance}.DAT",unpack=True))
     X = np.linspace(0.95*min(data_x),1.05*max(data_x),1000)
@@ -53,8 +55,6 @@ for i,distance in enumerate([10,13,15,17,20,25]):
         popt, pcov = curve_fit(hysteresis,x,y,p0=p0,maxfev=10000,bounds=[lower,upper])
         fit_params.append(popt),fit_errors.append(np.diag(pcov))
 
-        print(slope)
-
         # error calculation
         # dA = lambda x: np.tanh(popt[1]*(x-popt[2]))
         # dB = lambda x: popt[0]*(x-popt[2])/np.cosh(popt[1]*(x-popt[2]))**2
@@ -70,16 +70,27 @@ for i,distance in enumerate([10,13,15,17,20,25]):
     C, C_err = 0.5*(fit_params[0][2]-fit_params[1][2]), 0.5*np.sqrt(fit_errors[0][2]**2+fit_errors[1][2]**2)
     D, D_err = 0.5*(fit_params[0][3]+fit_params[1][3]), 0.5*np.sqrt(fit_errors[0][3]**2+fit_errors[1][3]**2)
 
-    axes[i].set_title(f"d = {distance} mm")
+    # Calculate the effective anisotropy constant
+    H_s = X[np.argmin(np.abs(A-hysteresis(X,A,B,C,D)))]
+
+    K_eff = 0.5 * A * (C - H_s)
+
+    print(f"SI{thickness}nanometer & SI{A:.2f}millidegree & {H_s:.2f}oersted & {C:.2f}oersted & {K_eff:.2f}millidegreeperoersted \\\\")
+
+    # print(f"SI {thickness} nanometer & SI {A:.4f}pm{A_err:.4f} millidegree & SI {B*1e3:.4f}pm{B_err*1e3:.4f} permillioersted \
+    # & SI {C:.2f}pm{C_err:.2f} oersted & SI {D*1e3:.2f}pm{D_err*1e3:.2f} microdegreeperoersted")
+
+    axes[i].set_title(f"d = {thickness} nm")
     axes[i].scatter(data_x,data_y,s=1,alpha=0.9,label="data")
     axes[i].plot(X,hysteresis(X,A,B,C,D),lw=2,c="C1",label="model")
     axes[i].plot(X,hysteresis(X,A,B,-C,D),lw=2,c="C1")
     axes[i].legend(fontsize=16,loc="lower right")
 
+
     # axes[i].fill_between(X,hysteresis(X,A,B,C,D)-dH,hysteresis(X,A,B,C,D)+dH,alpha=0.2)
     # axes[i].fill_between(X,hysteresis(X,A,B,-C,D)-dH,hysteresis(X,A,B,-C,D)+dH,alpha=0.2)
 
 fig.text(0.52, 0.02, 'Magnetic field strength (Oe)', ha='center',fontsize=20)
-fig.text(0.06, 0.5, 'Kerr-Rotation + const. (mdeg)', va='center', rotation='vertical',fontsize=24)
+fig.text(0.04, 0.5, 'Kerr-Rotation + const. (mdeg)', va='center', rotation='vertical',fontsize=24)
 
 plt.show()
