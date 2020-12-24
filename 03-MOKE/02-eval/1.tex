@@ -3,4 +3,34 @@
 \section{Ferromagnets: Pd/Co/Pd sample}
 \label{sec:ferromagnet}
 
+The first sample consists of two thin layers of Palladium (paramagnetic) and one
+layer of Cobalt (ferromagnetic) of variable thickness $d$. The crystal lattice of the
+trilayer system in total acts as a ferromagnet. The different magnetic properties of 
+the sublattice however can cause strong changes in both magnitude and direction of
+magnetization in special cases. These effects will in part be analysed in this 
+section.
+
+Before the measurement data is evaluated the applied model is presented. The 
+Kerr-angle that is measured as a function of external magnetic field is proportional
+to intrinsic magnetisation, we are effectively measuring a magnetic hysteresis modulo
+some numerical constants. Expanding on the work in \cite{article} we can therefore 
+impose a model to analytically describe the hysteresis curve traced out by the
+Kerr-angle $\Upphi$ in the experiment. This model is presented in 
+\autoref{eq:hysteresis-model}.
+
+\begin{equation}
+\label{eq:hysteresis-model}
+\Upphi(H) = \Upphi_s \tanh\left( B ( H \pm H_c ) \right) + \mu_0 H.
+\end{equation}
+
+In the above \autoref{eq:hysteresis-model} there are several parameters that 
+influence the shape of the hysteresis curve. These are:
+
+\begin{itemize}
+\item $\Upphi_s$ is the Kerr-angle at the saturation point. 
+\item $B$\footnote{for lack of more fitting nomenclature in the literature} 
+determines the magnetic hardness of the sample.
+\item $\pm H_c$ is the coercive field strength, on the up/downsweep of $H$.
+\end{itemize}
+
 
