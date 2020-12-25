@@ -15,15 +15,17 @@ def prepare_data(data,bin_tails=False):
 
     return x,y
 
+T = [0,10,72,75]
+H_c = np.zeros_like(T)
+H_c_err = np.zeros_like(T)
+
 plt.rcParams.update({'font.size': 20})
 plt.rc('axes', labelsize=26)
-
 fig, axes = plt.subplots(2,2,sharey="row",sharex="row")
 fig.subplots_adjust(hspace=0.65,wspace=0.05)
 axes = axes.ravel()
 
 for i,temperature in enumerate(["00","10","72","75"]):
-
 
     data_x,data_y = prepare_data(np.loadtxt(f"../data/sample_C6_{temperature}.DAT",unpack=True))
     X = np.linspace(0.95*min(data_x),1.05*max(data_x),1000)
@@ -40,7 +42,7 @@ for i,temperature in enumerate(["00","10","72","75"]):
 
     for j,branch in enumerate(["descending", "ascending"]):
 
-        treshold = [170,180,200,140,110,40][i]
+        treshold = [30,30,30,30,30,30][i]
         x,y = x_split[j],y_split[j]
 
         # initial guesses
@@ -72,17 +74,22 @@ for i,temperature in enumerate(["00","10","72","75"]):
     # print(f"SI {thickness} nanometer & SI {A:.4f}pm{A_err:.4f} millidegree & SI {B*1e3:.4f}pm{B_err*1e3:.4f} permillioersted \
     # & SI {C:.2f}pm{C_err:.2f} oersted & SI {D*1e3:.2f}pm{D_err*1e3:.2f} microdegreeperoersted")
 
-    axes[i].set_title(f"T = {temperature} °C")
+    axes[i].set_title(f"T = {int(temperature)} °C")
     axes[i].scatter(data_x,data_y,s=1,alpha=0.9,label="data")
-    #axes[i].plot(X,hysteresis(X,A,B,C,D),lw=2,c="C1",label="model")
-    #axes[i].plot(X,hysteresis(X,A,B,-C,D),lw=2,c="C1")
+    axes[i].plot(X,hysteresis(X,A,B,C,D),lw=2,c="C1",label="model")
+    axes[i].plot(X,hysteresis(X,A,B,-C,D),lw=2,c="C1")
     axes[i].legend(fontsize=16,loc="lower right")
 
+    H_c[i] += C
+    H_c_err[i] += C_err
 
     # axes[i].fill_between(X,hysteresis(X,A,B,C,D)-dH,hysteresis(X,A,B,C,D)+dH,alpha=0.2)
     # axes[i].fill_between(X,hysteresis(X,A,B,-C,D)-dH,hysteresis(X,A,B,-C,D)+dH,alpha=0.2)
 
 fig.text(0.52, 0.02, 'Magnetic field strength (Oe)', ha='center',fontsize=20)
 fig.text(0.04, 0.5, 'Kerr-Rotation + const. (mdeg)', va='center', rotation='vertical',fontsize=24)
+
+plt.figure()
+plt.errorbar(T,H_c,xerr=2,yerr=H_c_err,ls="none")
 
 plt.show()
