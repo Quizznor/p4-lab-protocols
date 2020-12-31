@@ -10,10 +10,10 @@ at various angles relative to the beam path. For every angle two measurements of
 in the beam path that allows for Compton scattering. The second measurement is
 conducted without any target and will help quantify the background noise measured
 by the spectrometer. The resulting distribution of electron energies is shown in
-\autoref{fig:diff-measurements} for all measurements.
+\autoref{fig:diff-measurements} and \autoref{fig:diff-measurements2} for all measurements.
 
 \begin{figure}
-  \includegraphics[width=1.0\textwidth]{./fig/differential measurements.png}
+  \includegraphics[width=1.0\textwidth]{./fig/differential measurements_part.png}
 \caption{Raw number of events counted in every channel for each measured angle.
   The dashed black lines indicate the theoretical energy a photon has after
   undergoing compton scattering at an angle $\theta$. The distance between signal
@@ -30,7 +30,7 @@ is measured at these angles, but rather the flux $\upphi_0$ of the $\gamma$ sour
 The two  measurements have to be discarded in the following analysis.
 
 Furthermore, the detector quantum efficiency $\epsilon$ has to be evaluated. For this
-purpose a second order polynomial is fitted to Plot 7.10 (p.134) in \cite{Sch17}. The
+purpose a second order polynomial is fitted to Plot 7.10 (p.134) in \cite{Sch17} (see \autoref{fig:plot710}). The
 parameters of the best fit result are given below.
 
 \begin{align*}
@@ -55,7 +55,7 @@ $\frac{\d\sigma}{\d\Omega}$ can be obtained as lined out in \cite{Sch17}.
 	\frac{\d\sigma}{\d\Omega} = \frac{R(\Delta\Omega,\theta)\,_\text{Sig}\;-R(\Delta\Omega,\theta)\,_\text{Bkg}}{\Delta\Omega \cdot \upphi_0 \cdot n_e},
 \end{equation}
 
-where $\Delta\Omega$ is the solid angle covered by the scintillator detecor as seen
+where $\Delta\Omega$ is the solid angle covered by the scintillator as seen
 from the target position. $\upphi_0$ is the flux of photons hitting the target. $n_e$
 holds information about the number of scattering partners (i.e. electrons) available
 to a single photon. With information given in \cite{Sch17} their numerical value can 
@@ -88,9 +88,8 @@ holds an uncertainty $\Delta S$, which propagates like
 	\label{fig:diff-cross-section}
 \end{figure}
 
-The results of this analysis are presented in \autoref{fig:diff-cross-section}. They
-withstand the comparison to theoretical values given by \autoref{eq:klein-nishina}.
-Worrysome is however a constant offset by which the measurements deviate from
-theoretical data. The offset indicates the presence of systematic errors in the
-experiment. One certain error source may be the imperfect energy-channel calibration
+The results of this analysis are presented in \autoref{fig:diff-cross-section}. 
+The plot shows the experimental data and the theoretical values given by \autoref{eq:klein-nishina}.
+An offset indicates the presence of systematic errors in the
+experiment. One possible error source may be the imperfect energy-channel calibration
 discussed in \autoref{sec:ecal}.

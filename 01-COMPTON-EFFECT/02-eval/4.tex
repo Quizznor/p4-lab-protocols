@@ -4,7 +4,7 @@
 \label{sec:energy-shift}
 
 In an attempt to estimate the rest mass of the electron, \autoref{eq:photon-energy}
-can be manipulated.
+can be rewritten.
 
 \begin{equation}
 \label{eq:linear-regression}
@@ -17,8 +17,8 @@ $\frac{1}{E_{\gamma,i}}$. A linear regression should be able to estimate $m_e$ f
 the measurement data gathered in \autoref{sec:differential-cross-section}.
 
 The photon energy $E_{\gamma,f}$ post-scattering can be directly extracted from the 
-location of the gaussian peaks present in the measured compton spectra. For the sake
-of a more solid analysis, a normal distribution is fitted to each peak. The results
+location of the gaussian peaks present in the measured compton spectra. 
+A normal distribution is fitted to each peak. The results
 of these processes are listed in \autoref{tab:energy-shift}. The median of the best 
 fit result is then taken as $E_{\gamma,f}$ in the subsequent discussion.
 
@@ -38,16 +38,15 @@ parameter
 
 which deviates from the literature value (\SI{510.999}{\kilo\electronvolt}
 \cite{patrignani2016review}) by about 10\%. It does not lay within the uncertainty
-bounds of the "correct" value either. Possible reasons are an underestimation of 
+bounds of the literature value either. Possible reasons are an underestimation of 
 systematic errors in the energy calibration. Correlations between the respective 
 measurements are also expected to play a part. The results of this analysis are 
-visualised in \autoref{fig:energy-shift}.
+visualised in \autoref{fig:energy-shift}. Notable is the relatively small deviation 
+from the literature value for small angles. This again hints at a poor energy calibration of the MCA.
 
 \begin{figure}
 	\centering
 	\includegraphics[width=1.0\textwidth]{./fig/energy-shift.png}
-	\caption{Comparison of the calculated linear model with literature values.
-	Notable is the relatively small deviation from the literature value for small
-	angles. This again hints at a poor energy calibration of the MCA.}
+	\caption{Comparison of the calculated linear model with literature values.}
 	\label{fig:energy-shift}
 \end{figure}
