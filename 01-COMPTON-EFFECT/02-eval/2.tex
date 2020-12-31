@@ -61,6 +61,7 @@ conforms with observations to reasonable accuracy. This accuracy $\Delta E
 estimated by the fitting algorithm, as well as the gradient $\nabla E$, which can
 easily be calculated by hand.
 
+
 \begin{equation*}
 	\text{COV}(a,b) =
 	\left[
@@ -77,6 +78,10 @@ easily be calculated by hand.
 	\Delta E(\mathcal{C}) = \sqrt{\,(\nabla E)^{T}\,\text{COV}(a,b)\,\nabla E}\,.
 \end{equation}
 
+The diagonal elements describe the variance of the parameters a and b, the off-diagonal elements the covariance of these.
+Since the covariance is negative, the parameters have an opposite monotonic relationship 
+(high values of one random variable correspond with low values of the other random variable and vice versa).
+The covariance is not normalized, so it is difficult to make statements about its magnitude.
 It is expected that the uncertainties in $E(\mathcal{C})$ grow large for energies
 located far away from the calibration points. This is especially the case for high
 scattering angles.
