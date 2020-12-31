@@ -3,3 +3,31 @@
 \section{Ferrimagnets: Fe$_{1-x}$Gd$_x$ samples}
 \label{sec:ferrimagnets}
 
+Lastly, layered systems of Iron (Fe) and Gadolinium (Gd) are tested for their
+magnetic properties. Several samples with varying Gd-concentrations of $x\,\%$ are 
+available to be experimented on. Unfortunately only one of the samples ($\#6$)
+delivered physically sensible data at the time of the experiment. As a consequence, 
+only the set of measurements pertaining to this sample will be analysed in depth.
+
+In order to find the compensation temperature of the ferrimagnet, the sample is 
+placed on a heating module whose temperature can be controlled by adjusting the 
+applied voltage. Due to large fluctuations in temperature during measurements, the 
+uneven contact of the sample to the heating element as well as other environmental 
+factors, the temperature of the sample is assumed to have an uncertainty of 
+$\pm\SI{1}{\celsius}$. After the hysteresis at a specific temperature is measured,
+the temperature of the sample is changed and the process is repeated for a different
+temperature. The results of this survey are fitted to the theoretical model 
+introduced in \autoref{sec:ferromagnet}. The gathered model parameters are presented 
+in \autoref{tab:fitvals-ferri}. A selected few measurement are also visualised in 
+\autoref{fig:ferrimagnet-measurement}. As can be seen in both the table and the
+figure, the coercive field strength ($H_c$) decreases with increasing temperature.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=1.0\textwidth]{./fig/ferrimagnet_measurement.png}
+	\caption{The hysteresis of a FeGd layer system for different temperatures}
+	\label{fig:ferrimagnet-measurement}
+\end{figure}
+
+\input{./tab/ferrimagnet_fit.tex}
+
