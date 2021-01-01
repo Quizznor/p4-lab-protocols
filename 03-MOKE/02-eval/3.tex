@@ -4,23 +4,53 @@
 \label{sec:ferrimagnets}
 
 Lastly, layered systems of Iron (Fe) and Gadolinium (Gd) are tested for their
-magnetic properties. Several samples with varying Gd-concentrations of $x\,\%$ are 
+magnetic properties. Several samples with varying Gd-concentrations of $x\,\%$ are
 available to be experimented on. Unfortunately only one of the samples ($\#6$)
-delivered physically sensible data at the time of the experiment. As a consequence, 
+delivered physically sensible data at the time of the experiment. As a consequence,
 only the set of measurements pertaining to this sample will be analysed in depth.
 
-In order to find the compensation temperature of the ferrimagnet, the sample is 
-placed on a heating module whose temperature can be controlled by adjusting the 
-applied voltage. Due to large fluctuations in temperature during measurements, the 
-uneven contact of the sample to the heating element as well as other environmental 
-factors, the temperature of the sample is assumed to have an uncertainty of 
-$\pm\SI{1}{\celsius}$. After the hysteresis at a specific temperature is measured,
-the temperature of the sample is changed and the process is repeated for a different
-temperature. The results of this survey are fitted to the theoretical model 
-introduced in \autoref{sec:ferromagnet}. The gathered model parameters are presented 
-in \autoref{tab:fitvals-ferri}. A selected few measurement are also visualised in 
-\autoref{fig:ferrimagnet-measurement}. As can be seen in both the table and the
-figure, the coercive field strength ($H_c$) decreases with increasing temperature.
+During measurements, the sample is placed on a heating module, whose temperature can
+be controlled by adjusting an applied voltage. Due to large fluctuations in
+temperature during measurements, the uneven contact of the sample to the heating
+element as well as other environmental factors, the temperature of the sample is
+assumed to have an uncertainty of $\pm\SI{1}{\celsius}$. After the hysteresis at a
+specific temperature is measured, the temperature of the sample is changed and the
+process is repeated for a different temperature. The results of this survey are
+fitted to the theoretical model introduced in \autoref{sec:ferromagnet}. The gathered
+model parameters are presented in \autoref{tab:fitvals-ferri}. A select few
+measurement are also visualised in \autoref{fig:ferrimagnet-measurement}. As can be
+seen in both the table and the figure, the coercive field strength ($H_c$) decreases
+with increasing temperature. This is expected. The two antiparallel magnetic
+sublattices in the sample react differently to temperature. As a consequence, the net
+magnetisation of the sample varies throughout the measurement process. At a specific
+temperature $T_\text{comp.}$, the magnetisation of the lattices are exactly opposite,
+causing a net magnetisation of zero. This is best seen by plotting the coercive field
+strength $H_c$ over sample temperature $T$, as is done in
+\autoref{fig:compensation-temperature}. Fitting a third order polynomial to the data
+points reveals, that the coercive field in this remperature regime can be roughly 
+described by \autoref{eq:compensation-polynomial}.
+
+\begin{equation}
+\label{eq:compensation-polynomial}
+	H_c(T) = -0.24(2)\,\SI{}{\milli\oersted\per\celsius\cubed} \;T^3 + 0.042(3)\,\SI{}{\oersted\per\celsius\squared} \;T^2 + -3.0(1)\,\SI{}{\oersted\per\celsius} \;T + 94.6(8)\,\SI{}{\oersted}
+\end{equation}
+
+The compensation temperature is then given as the temperature, where the coercive
+field is zero. Uncertainties in this result can be approximated using a maximum
+error estimation with the values given in \autoref{eq:compensation-polynomial}.
+
+\begin{equation*}
+	T_\text{comp.} = 81.4^{+1.0}_{-0.9}\,\SI{}{\celsius}
+\end{equation*}
+
+Corollarily, the Gd concentration $x$ can be estimated using the formula given in 
+\cite{lab-manual}.
+
+\begin{align*}
+\label{eq:Gd-concentration}
+	x\,(\text{at} \%) &= 0.01783\;\;T_\text{comp.} + 21 \\[7pt]
+	&= 22.451^{+0.017}_{-0.016}\,\%
+\end{align*}
 
 \begin{figure}
 	\centering
@@ -31,3 +61,9 @@ figure, the coercive field strength ($H_c$) decreases with increasing temperatur
 
 \input{./tab/ferrimagnet_fit.tex}
 
+\begin{figure}
+	\centering
+	\includegraphics[width=1.0\textwidth]{./fig/ferrimagnet_t_comp.png}
+	\caption{Coercive field strength of a FeGd layer system over temperature}
+	\label{fig:compensation-temperature}
+\end{figure}
