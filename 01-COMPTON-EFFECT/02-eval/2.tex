@@ -14,8 +14,8 @@
 	\label{fig:ecal-plot}
 \end{figure}
 
-As a first task the MCA needs to be calibrated so that measured channel numbers of an
-event can be related to the energy of the particles that caused it. The presented
+As a first task the MCA needs to be calibrated, so that the measured channel numbers of an
+event can be related to the particle energy. The presented
 calibration is fourfold. In seperate measurements the radionuclides Cobalt-57, and
 -60, as well as Sodium-22, and Caesium-137 are placed in front of the
 NaJ-scintillator. Their $\gamma$-spectrum is measured for \SI{300}{\second}. The
@@ -27,22 +27,21 @@ discussed briefly in \autoref{sec:compton-spectrum}.
 Equipped with theoretical knowledge of the radioactive processes, one can compare the
 measured channel with the expected energy of a nuclear transition to establish a
 linear connection between the two. For a more solid result this calibration is done
-simultanously for all measured radionuclides. A linear regression over all reference
+for all measured radionuclides. A linear regression over all reference
 points then allows a quantitative analysis of measurement results. Below listed in
 \autoref{tab:ecal-params} are the different observed radioactive transitions, their
 characteristic transition energies, as well as the channel they were observed in by
 the MCA, the last column holds information about the location of a guassian fit
 applied to the signal. In the bottom plot of \autoref{fig:ecal-plot} these results
-are furthermore visualised.
+are shown.
 
 \input{./tab/ecal-params}
 
 As can be seen both in the plot as well as the table, a calibration for the
 photopeaks of $^{60}$Co are not conducted. Extrapolating from the location of other 
-photopeaks the characteristic points of the $^{60}$Co $\gamma$-spectrum should be 
+photopeaks the characteristic points of the $^{60}$Co $\gamma$-spectrum could be 
 located around channels $\#195$ and $\#223$. This can however not be experimentally 
-verified. A reasonable analysis is not possible, as the photopeaks are - provided the
-presented methodology is sound - far too faint. This can perhaps be prevented in
+verified. A reasonable analysis is not possible. This can perhaps be prevented in
 future lab assignments by gathering more data of the $^{60}$Co spectrum.
 
 In any case, a linear model that connects channel number $\mathcal{C}$ to a particle
@@ -55,12 +54,13 @@ that is presented below.
 \end{equation}
 
 Albeit only three of the four radionuclides can be used effectively for a
-calibration, the results nevertheless seem promising. A quick check regarding the
+calibration. A quick check regarding the
 goodness of fit finds a reduced $\chi^{2}_\nu\approx0.97$, indicating that the model
 conforms with observations to reasonable accuracy. This accuracy $\Delta E
 (\mathcal{C})$ can then be quantified using the covariance matrix $\text{COV}(a,b)$,
 estimated by the fitting algorithm, as well as the gradient $\nabla E$, which can
 easily be calculated by hand.
+
 
 \begin{equation*}
 	\text{COV}(a,b) =
@@ -78,6 +78,10 @@ easily be calculated by hand.
 	\Delta E(\mathcal{C}) = \sqrt{\,(\nabla E)^{T}\,\text{COV}(a,b)\,\nabla E}\,.
 \end{equation}
 
+The diagonal elements describe the variance of the parameters a and b, the off-diagonal elements the covariance of these.
+Since the covariance is negative, the parameters have an opposite monotonic relationship 
+(high values of one random variable correspond with low values of the other random variable and vice versa).
+The covariance is not normalized, so it is difficult to make statements about its magnitude.
 It is expected that the uncertainties in $E(\mathcal{C})$ grow large for energies
 located far away from the calibration points. This is especially the case for high
 scattering angles.
