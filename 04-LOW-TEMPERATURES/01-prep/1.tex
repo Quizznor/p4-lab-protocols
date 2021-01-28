@@ -62,4 +62,53 @@ By doping a semiconductor, its conductivity can be strongly increased. In this p
 
 \section{Superconductors}
 
-\section{Experimental setup}
+
+
+Unlike metals and semiconductors, a superconductor has a critical temperature $T_c$. Below this temperature the electrical resistance disappears and the superconductor behaves like an ideal conductor. Due to the Meissner-Ochsenfeld effect, the superconductor also behaves like a diamagnet ($\chi = -1$). One can distinguish between metallic and kermaic superconductors. Metallic superconductors usually have lower critical temperatures. 
+These phenomena can be described by the BCS theory. Two electrons form a Copper pair with spin 1. So they behave like bosons, do not obey the Pauli principle like single electrons and have no total momentum.
+\begin{align*}
+    (\Vec{k} \uparrow , -\Vec{k} \downarrow )
+\end{align*}
+This behavior is explained via the polarization of the atomic lattice by the first electron and the resulting attraction of the second electron. The phonons are the exchange particles of this exchange interaction. 
+The Copper pairs all occupy the same quantum mechanical state at low temperatures and are therefore firmly correlated. If now an external electric field is applied, all copper pairs get the same momentum. However, the individual Cooper pairs cannot exchange momentum with the lattice because they are all in the same state and not all electrons can be scattered simultaneously. This effect describes nothing else than resistanceless charge transport through the lattice. 
+However, the stability is limited by the binding energy of the pair correlation of the Cooper pairs. If the momentum of the Cooper pairs increases by the electric field and thus their energy exceeds the binding energy, the interaction with the lattice starts again. Thus, there is a critical momentum (equivalent to current density) above which the superconductor becomes a normal conductor.
+
+\subsection{Superconductor in magnetic field}
+From the critical current density implied above, a critical magnetic field follows immediately. This behavior is described by the Meissner-Ochsenfeld effect. Here, the external magnetic field induces continuous currents at the surface of the superconductor and the external magnetic field is forced out of the inside . However, a small London penetration depth $\lambda$ exists. One can now distinguish between two types of superconductors:
+\begin{itemize}
+    \item superconductors 1st kind show the Meissner effect up to a critical field $B_{c,th}$.
+    \item Superconductors 2nd kind show the Meissner effect up to $B_{c1}$ and then enter the Shubnikov phase up to a field $B_{c2}$.
+\end{itemize}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{./fig/super.png}
+    \caption{Magnetization curve of superconductors 1st kind (left) and 2nd kind (right)}.
+    \label{fig:super}
+\end{figure}
+
+
+\subsection{Ginsburg-Landau Theory (GLAG)}
+Considering the problem as a phase transition, one can define an order parameter $\phi$ near the critical temperature. In our case, this describes the Cooper pair density and accordingly vanishes in the disordered phase for $T>T_c$. If we now develop the free energy density as powers of the order parameter in thermodynamic equilibrium, it becomes minimal. Thus, all other thermodynamic quantities can be derived such as the critical magnetic field $B_{c2}$, the Ginzburg-Landau coherence length $\xi_{GL}$ and the London penetration depth $\lambda$.
+\begin{equation}
+    \lambda(T) = \lambda(0) \left( 1-\left( \frac{T}{T_C }\right )^4\right )^{-1/2} 
+\end{equation}
+
+For the upper critical field $B_{c2}$, it follows:
+\begin{equation}
+    B_{c2}(T) = \frac{\Phi_0}{2\pi\xi_{GL}^2(T) }
+\end{equation}
+with flux quantum $\Phi_0=\frac{h}{2e}$ and GL coherence length $\xi_{GL}$:
+\begin{equation}
+    \xi_{GL}(T) = \frac{\xi_{GL}(0)}{\sqrt{1-T/T_c}}
+\end{equation}
+When T = 0, it follows:
+\begin{equation}
+    \xi_{GL}(0)=\left[\frac{- \Phi_0}{2 \pi T_c \frac{dB_{c2}}{dT}|_{T_c}} \right ]
+\end{equation}
+and the mean free path $l$ for niobium as normal conductor is given by:
+\begin{equation}
+    \xi_{GL}(0) = \sqrt{\SI{39}{nm}\cdot l}
+\end{equation}
+
+
