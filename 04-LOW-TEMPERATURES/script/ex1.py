@@ -45,6 +45,8 @@ d_dt = -1.17 * debye_R/debye_T**2 * np.array(linear_x_cu)
 d_dr = 1.17 * np.array(linear_x_cu)/debye_T - 0-17
 fit_err = np.zeros_like(linear_x_cu)
 model = linear_R(linear_x_cu,debye_T, debye_R)
+T_copper, R_copper = debye_T, debye_R
+T_copper_err, R_copper_err = np.sqrt(pcov[0][0]), np.sqrt(pcov[1][1])
 
 print(f"Copper: T_debye = {debye_T:.3f} +- {np.sqrt(pcov[0][0]):.3f} K")
 print(f"Copper: R_debye = {debye_R:.3f} +- {np.sqrt(pcov[1][1]):.3f} Ohm")
@@ -66,7 +68,7 @@ for i in range(len(fit_err_slope)):
     gradient = np.array([d_ds[i],d_do[i]])
     fit_err_slope[i] += np.sqrt( gradient.T @ pcov_slope @ gradient)
 
-# plotting everything
+# # plotting everything
 # plt.plot(linear_x_cu,model,c="C1",label="best fits")
 # plt.plot(nonlinear_x_cu, model_slope,c="C1")
 # plt.plot(np.linspace(50,280,10),linear_R(np.linspace(50,280,10),343,debye_R)+0.09,c="gray",ls="--",label="expected")
@@ -74,7 +76,6 @@ for i in range(len(fit_err_slope)):
 # plt.fill_between(linear_x_cu,model-fit_err+0.8, model+fit_err-0.8,alpha=0.2,color="C0",label="fit + 1$\sigma$")
 # plt.errorbar(linear_x_cu, linear_y_cu,capsize=3,xerr=2,yerr=0.0005,c="C0",ls="none",label="measured data")
 # plt.errorbar(nonlinear_x_cu, nonlinear_y_cu,xerr=2,yerr=0.0005,capsize=3,c="C0",ls="none")
-
 
 ## NIOBIUM ##
 
@@ -90,6 +91,8 @@ d_dt = -1.17 * debye_R/debye_T**2 * np.array(linear_x_nb)
 d_dr = 1.17 * np.array(linear_x_nb)/debye_T - 0-17
 fit_err = np.zeros_like(linear_x_nb)
 model = linear_R(linear_x_nb,debye_T, debye_R)
+T_niobium, R_niobium = debye_T, debye_R
+T_niobium_err, R_niobium_err = np.sqrt(pcov[0][0]), np.sqrt(pcov[1][1])
 
 print()
 print(f"Niobium: T_debye = {debye_T:.3f} +- {np.sqrt(pcov[0][0]):.3f} K")
@@ -123,13 +126,50 @@ for i in range(len(fit_err_slope)):
 
 ## SEMICONDUCTOR ##
 
-
-# plotting everything
+# # plotting everything
+# plt.figure()
 # plt.errorbar(T_down[:-4],U_SLP[:-4],xerr=2,yerr=0.005,ls="none",c="C0")
 # plt.errorbar(T_up,U_SLP_up,c="C0",xerr=2,yerr=0.005,ls="none")
 # plt.yscale("log")
+# plt.xlabel("Temperature (K)")
+# plt.ylabel("Resistivity (m$\Omega$)")
+# plt.legend()
 
-plt.xlabel("Temperature (K)")
-plt.ylabel("Resistivity (m$\Omega$)")
+## COMBINED ANALYSIS ##
+
+def line(x,slope,offset):
+    return slope * x + offset
+
+X = np.array(list(linear_x_cu/T_copper) + list(linear_x_nb/T_niobium))
+X_err = np.array(list(linear_x_cu/T_copper**2 * T_copper_err) + list(linear_x_nb/T_niobium**2 * T_niobium_err))
+Y = np.array(list(linear_y_cu/R_copper) + list(linear_y_nb/R_niobium))
+Y_err = np.array(list(linear_y_cu/R_copper**2 * R_copper_err) + list(linear_y_nb/R_niobium**2 * R_niobium_err))
+
+# iterative fitting to function
+slope, offset = 1.17, 0.17
+for i in range(5):
+    (slope, offset), pcov = curve_fit(line,X,Y,sigma = np.sqrt(Y_err**2 + (slope*X_err)**2))
+
+slope_err = np.sqrt(pcov[0][0])
+offset_err = np.sqrt(pcov[1][1])
+model = slope * X + offset
+d_ds, d_do = X, np.ones_like(X)
+fit_err = np.zeros_like(X)
+
+for i in range(len(fit_err)):
+    gradient = np.array([d_ds[i],d_do[i]])
+    fit_err[i] += np.sqrt( gradient.T @ pcov @ gradient)
+
+print()
+print(f"COMBINED ANALYSIS: slope = {slope:.3f} +- {slope_err:.3f}")
+print(f"COMBINED ANALYSIS: offset = {offset:.3f} +- {offset_err:.3f}")
+
+plt.errorbar(X,Y,X_err,Y_err,ls="none")
+plt.scatter(linear_x_cu/T_copper, linear_y_cu/R_copper,marker="s",s=5,label="Copper")
+plt.scatter(linear_x_nb/T_niobium, linear_y_nb/R_niobium,marker="o",s=10,zorder=50,label="Niobium")
+plt.fill_between(X,model-fit_err, model+fit_err,alpha=0.2,color="C0",label="fit + 1$\sigma$")
 plt.legend()
+plt.xlabel(r"T / $\theta$")
+plt.ylabel(r"R / R$_\theta$")
+
 plt.show()
