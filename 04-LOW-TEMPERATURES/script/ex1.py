@@ -48,6 +48,15 @@ model = linear_R(linear_x_cu,debye_T, debye_R)
 T_copper, R_copper = debye_T, debye_R
 T_copper_err, R_copper_err = np.sqrt(pcov[0][0]), np.sqrt(pcov[1][1])
 
+specific_resistance_300 = 0.017e-6 # Ohm meter
+l_copper = 2. * 7.8642e-9/specific_resistance_300
+l_copper_err = 0.0005 * 7.8642e-9/specific_resistance_300
+specific_resistivity = 658.7e-18
+
+# mean_free_path =
+
+print(l_copper)
+
 print(f"Copper: T_debye = {debye_T:.3f} +- {np.sqrt(pcov[0][0]):.3f} K")
 print(f"Copper: R_debye = {debye_R:.3f} +- {np.sqrt(pcov[1][1]):.3f} Ohm")
 
@@ -68,14 +77,14 @@ for i in range(len(fit_err_slope)):
     gradient = np.array([d_ds[i],d_do[i]])
     fit_err_slope[i] += np.sqrt( gradient.T @ pcov_slope @ gradient)
 
-# # plotting everything
-# plt.plot(linear_x_cu,model,c="C1",label="best fits")
-# plt.plot(nonlinear_x_cu, model_slope,c="C1")
-# plt.plot(np.linspace(50,280,10),linear_R(np.linspace(50,280,10),343,debye_R)+0.09,c="gray",ls="--",label="expected")
-# plt.fill_between(nonlinear_x_cu,0.01*model_slope-fit_err_slope, 3*model_slope+fit_err_slope,alpha=0.2,color="C0")
-# plt.fill_between(linear_x_cu,model-fit_err+0.8, model+fit_err-0.8,alpha=0.2,color="C0",label="fit + 1$\sigma$")
-# plt.errorbar(linear_x_cu, linear_y_cu,capsize=3,xerr=2,yerr=0.0005,c="C0",ls="none",label="measured data")
-# plt.errorbar(nonlinear_x_cu, nonlinear_y_cu,xerr=2,yerr=0.0005,capsize=3,c="C0",ls="none")
+# plotting everything
+plt.plot(linear_x_cu,model,c="C1",label="best fits")
+plt.plot(nonlinear_x_cu, model_slope,c="C1")
+plt.plot(np.linspace(50,280,10),linear_R(np.linspace(50,280,10),343,debye_R)+0.09,c="gray",ls="--",label="expected")
+plt.fill_between(nonlinear_x_cu,0.01*model_slope-fit_err_slope, 3*model_slope+fit_err_slope,alpha=0.2,color="C0")
+plt.fill_between(linear_x_cu,model-fit_err+0.8, model+fit_err-0.8,alpha=0.2,color="C0",label="fit + 1$\sigma$")
+plt.errorbar(linear_x_cu, linear_y_cu,capsize=3,xerr=2,yerr=0.0005,c="C0",ls="none",label="measured data")
+plt.errorbar(nonlinear_x_cu, nonlinear_y_cu,xerr=2,yerr=0.0005,capsize=3,c="C0",ls="none")
 
 ## NIOBIUM ##
 
@@ -93,8 +102,11 @@ fit_err = np.zeros_like(linear_x_nb)
 model = linear_R(linear_x_nb,debye_T, debye_R)
 T_niobium, R_niobium = debye_T, debye_R
 T_niobium_err, R_niobium_err = np.sqrt(pcov[0][0]), np.sqrt(pcov[1][1])
+# specific_resistivity =
+# mean_free_path =
 
 print()
+# print(f"Niobium: l = {l_niobium:.3f} +- {l_niobium_err}:.3f} K")
 print(f"Niobium: T_debye = {debye_T:.3f} +- {np.sqrt(pcov[0][0]):.3f} K")
 print(f"Niobium: R_debye = {debye_R:.3f} +- {np.sqrt(pcov[1][1]):.3f} Ohm")
 
