@@ -51,14 +51,31 @@ the low end of the temperature scale ($<\SI{50}{\kelvin}$). The analysis finds
 \text{Niobium}: m &= 4.40 \pm 0.71
 \end{align*}
 
-While both data sets again do not conform exactly to theory ($m=5$), a clear hint to the
-$T^5$-behaviour can be extracted from the found results. Lastly, the validity of
-\autoref{eq:HT} is evaluated via a combined analysis of both copper and niobium data.
-For this porpose the reduced resistivity $\frac{R}{R_\theta}$ is plotted against the
-reduced temperature $\frac{T}{\theta}$. This approach should eliminate possible
-systematic errors made during the measurement process. A visualisation can be found
-in \autoref{fig:combined-analysis}. A linear regression reveals, that both sets of
-data can be described by a line with parameters
+While both data sets again do not conform exactly to theory ($m=5$), a clear hint to 
+the $T^5$-behaviour can be extracted from the found results. Furthermore, the 
+resistivity $\rho$ and mean free path $\mu$ at low temperatures is evaluated for both
+copper and niobium are evaluated as explained in the lab manual. The analysis finds
+the resistivities to be
+
+\begin{align*}
+	\rho_\text{Cu}(\SI{4.2}{\kelvin}) &= \SI{8.2\pm2.5e-12}{\ohm\meter} \\
+	\rho_\text{Nb}(\SI{12}{\kelvin}) &= \SI{29\pm2.5e-10}{\ohm\meter}. \\
+\end{align*}
+
+From this, the mean free path can be gathered from its connection with the constant 
+$\rho l$:
+
+\begin{align*}
+	\mu_\text{Cu} &= \frac{\rho l_\text{Cu}}{\rho_\text{Cu}} = \SI{80\pm24}{\micro\meter} \\
+	\mu_\text{Nb} &= ... = \SI{130\pm11}{\nano\meter} \\ 
+\end{align*}
+
+Lastly, the validity of \autoref{eq:HT} is evaluated via a combined analysis of both 
+copper and niobium data. For this porpose the reduced resistivity 
+$\frac{R}{R_\theta}$ is plotted against the reduced temperature $\frac{T}{\theta}$. 
+This approach should eliminate possible systematic errors made during the measurement
+process. A visualisation can be found in \autoref{fig:combined-analysis}. A linear 
+regression reveals, that both sets of data can be described by a line with parameters
 
 \begin{align*}
 % \label{eq:fitparams-combined}
