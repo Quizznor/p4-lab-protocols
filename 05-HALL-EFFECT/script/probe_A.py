@@ -122,3 +122,6 @@ plt.errorbar(1/T_int,y_data,xerr=1.5/T_int**2,yerr=y_data_err,ls="none",capsize=
 plt.legend()
 
 plt.show()
+
+# print(T_int[0],T_int[-1])
+# print(T_ext[0],T_ext[-1])
