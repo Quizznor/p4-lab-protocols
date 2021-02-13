@@ -24,10 +24,10 @@ T=np.concatenate((T1,data2[0])) #Temperatur in K
 
 def linfit(x,A,B):
     return A*x+B
-popt, pcov = curve_fit(linfit,1/data2[0][0:3],np.log(1/data2[2][0:3]))
+popt, pcov = curve_fit(linfit,1/data2[0][3:20],np.log(1/data2[2][3:20]))
 
 perr= np.sqrt(np.diag(pcov))
-print(popt,perr)
+print(popt[0],"+-",perr[0])
 
 k=8.617343 *10**-2 # in meV/K
 

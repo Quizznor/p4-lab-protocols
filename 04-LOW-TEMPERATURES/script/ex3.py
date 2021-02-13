@@ -16,7 +16,7 @@ for i in range(len(deltaR)):
     R[i] = R0 + np.sum(deltaR[0:i+1])
 #print(R)
 T = temperature(R)
-#print(T)
+print(T)
 
 I = np.array([0,1.5,3,4.5,6,7.5,9,10.5]) # in A
 B = np.array([0,0.071895,0.14379,0.215685,0.28758,0.359475,0.43137,0.503265]) # in Tesla
@@ -26,9 +26,10 @@ def linfit(x,A,B):
 
 #popt, pcov = curve_fit(linfit,T,B)
 popt, pcov = curve_fit(linfit,T[0:3],B[0:3])
-#print(popt)
+
 #print(pcov)
 perr = np.sqrt(np.diag(pcov))
+print(popt[0],"+-",perr[0])
 phi0= 2.07*np.float_power(10, -15)
 E = np.sqrt(-phi0/(2*np.pi*T0*popt[0]))
 Eer = 0.5*E*perr[0]/popt[0]
